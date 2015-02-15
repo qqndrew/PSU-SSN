@@ -1,0 +1,6 @@
+mysql:
+  server: localhost
+  port: 3306
+  username: admin
+  password: password
+localization:
