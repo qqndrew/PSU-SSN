@@ -1,18 +1,17 @@
 package edu.pdx.ssn;
 
-import org.yaml.snakeyaml.Yaml;
+import edu.pdx.ssn.pages.PageManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
-public final class Server extends HttpServlet {
+public final class Server extends HttpServlet implements Sessions {
 
     protected static final String CONFIGURATION_FILE_NAME = "configuration.yml";
 
@@ -23,7 +22,7 @@ public final class Server extends HttpServlet {
     public void init() throws ServletException {
         File configFile = new File(CONFIGURATION_FILE_NAME);
         // Check for presence of configuration file
-        if (!configFile.exists()) {
+        /*if (!configFile.exists()) {
             throw new ServletException("No configuration file provided!");
         }
         Yaml configYml = new Yaml();
@@ -32,12 +31,34 @@ public final class Server extends HttpServlet {
 
         } catch (FileNotFoundException e) {
             throw new ServletException("Could not load configuration! This should never be reached.");
-        }
+        }*/
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        System.out.println("Doing get");
+        // Construct session
+        HttpSession session = req.getSession();
+        if (session.isNew()) {
+            session.setAttribute(IS_LOGGED_IN, false);
+        }
+        //boolean logged_in = (Boolean) session.getAttribute(IS_LOGGED_IN);
+        // Determine page
+        String page;
+        Map<String, String[]> params = req.getParameterMap();
+        if (params.containsKey(Queries.APP.getKey())) {
+            String pageKey = params.get(Queries.APP.getKey())[0];
+            page = PageManager.getPage(pageKey);
+        } else {
+            page = PageManager.getPage(null);
+        }
+        String title = PageManager.getTitle(page);
+        req.setAttribute("title", title);
+        req.setAttribute("app", page);
+        // Redirect to page
+        req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
     }
 
 }
+
+

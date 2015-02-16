@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -13,15 +12,19 @@
     <groupId>edu.pdx</groupId>
     <artifactId>ssn-servlet</artifactId>
     <name>Student Support Network - Web Servlet</name>
+    <packaging>war</packaging>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <tomcat.version>7.0.57</tomcat.version>
+    </properties>
     <repositories>
         <repository>
             <id>Sonatype-public</id>
-            <name>SnakeYAML repository</name>
+            <name>SnakeYAMLrepository</name>
             <url>http://oss.sonatype.org/content/groups/public/</url>
         </repository>
     </repositories>
-
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -30,10 +33,48 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl-api</artifactId>
+            <version>1.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>1.15-SNAPSHOT</version>
         </dependency>
     </dependencies>
-    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.1</version>
+                <executions>
+                    <execution>
+                        <id>tomcat-run</id>
+                        <goals>
+                            <goal>exec-war-only</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <path>/</path>
+                            <enableNaming>false</enableNaming>
+                            <finalName>server.jar</finalName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
