@@ -1,10 +1,10 @@
 package edu.pdx.ssn;
 
-public enum Queries {
+public enum Params {
     APP("app");
     private final String key;
 
-    Queries(String name) {
+    Params(String name) {
         this.key = name;
     }
 

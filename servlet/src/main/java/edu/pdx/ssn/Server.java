@@ -41,13 +41,13 @@ public final class Server extends HttpServlet implements Sessions {
         HttpSession session = req.getSession();
         if (session.isNew()) {
             session.setAttribute(IS_LOGGED_IN, false);
+            session.setAttribute(ADMIN, false);
         }
-        //boolean logged_in = (Boolean) session.getAttribute(IS_LOGGED_IN);
         // Determine page
         String page;
         Map<String, String[]> params = req.getParameterMap();
-        if (params.containsKey(Queries.APP.getKey())) {
-            String pageKey = params.get(Queries.APP.getKey())[0];
+        if (params.containsKey(Params.APP.getKey())) {
+            String pageKey = params.get(Params.APP.getKey())[0];
             page = PageManager.getPage(pageKey);
         } else {
             page = PageManager.getPage(null);
@@ -56,7 +56,7 @@ public final class Server extends HttpServlet implements Sessions {
         req.setAttribute("title", title);
         req.setAttribute("app", page);
         // Redirect to page
-        req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/index.jsp?app=" + page).forward(req, resp);
     }
 
 }
