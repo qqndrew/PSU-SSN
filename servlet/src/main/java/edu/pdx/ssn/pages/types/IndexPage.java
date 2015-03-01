@@ -5,13 +5,18 @@ import edu.pdx.ssn.pages.ServerPage;
 import javax.servlet.http.HttpServletRequest;
 
 public class IndexPage implements ServerPage {
-    @Override
-    public String getTitle() {
-        return "Main Page";
-    }
+
+    public static final String PAGE_KEY = "idx";
 
     @Override
     public void setRequestAttributes(HttpServletRequest req) {
         return;
+    }
+
+
+    @Override
+    public void setMetaAttributes(HttpServletRequest req) {
+        req.setAttribute("title", "Main Page");
+        req.setAttribute("app", PAGE_KEY);
     }
 }

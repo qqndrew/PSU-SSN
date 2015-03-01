@@ -1,5 +1,6 @@
 package edu.pdx.ssn.pages.types;
 
+import edu.pdx.ssn.Params;
 import edu.pdx.ssn.application.Library;
 import edu.pdx.ssn.pages.ServerPage;
 
@@ -8,31 +9,27 @@ import java.util.Map;
 
 public class CatalogPage implements ServerPage {
 
-    public static final String UID_QUERY_STRING = "uid";
-    public static final String ISBN_QUERY_STRING = "isbn";
-    public static final String TITLE_QUERY_STRING = "title";
-    public static final String AUTHOR_LAST_QUERY_STRING = "last";
-    public static final String AUTHOR_FIRST_QUERY_STRING = "first";
-    public static final String SUBJECT_QUERY_STRING = "subj";
-    public static final String COURSE_QUERY_STRING = "courseno";
+    public static final String PAGE_KEY = "catalog";
 
     Library library = null;
 
-    @Override
-    public String getTitle() {
-        return "Catalog";
-    }
 
     @Override
     public void setRequestAttributes(HttpServletRequest req) {
         Map<String, String[]> params = req.getParameterMap();
-        Long uid = params.containsKey(UID_QUERY_STRING) ? Long.valueOf(params.get(UID_QUERY_STRING)[0]) : null;
-        Long isbn = params.containsKey(ISBN_QUERY_STRING) ? Long.valueOf(params.get(ISBN_QUERY_STRING)[0]) : null;
-        String title = params.containsKey(TITLE_QUERY_STRING) ? params.get(TITLE_QUERY_STRING)[0] : null;
-        String last = params.containsKey(AUTHOR_LAST_QUERY_STRING) ? params.get(AUTHOR_LAST_QUERY_STRING)[0] : null;
-        String first = params.containsKey(AUTHOR_FIRST_QUERY_STRING) ? params.get(AUTHOR_FIRST_QUERY_STRING)[0] : null;
-        String subj = params.containsKey(SUBJECT_QUERY_STRING) ? params.get(SUBJECT_QUERY_STRING)[0] : null;
-        int courseno = params.containsKey(COURSE_QUERY_STRING) ? Integer.valueOf(params.get(COURSE_QUERY_STRING)[0]) : null;
+        Long uid = params.containsKey(Params.UID) ? Long.valueOf(params.get(Params.UID)[0]) : null;
+        Long isbn = params.containsKey(Params.ISBN) ? Long.valueOf(params.get(Params.ISBN)[0]) : null;
+        String title = params.containsKey(Params.TITLE) ? params.get(Params.TITLE)[0] : null;
+        String last = params.containsKey(Params.AUTHOR_LAST) ? params.get(Params.AUTHOR_LAST)[0] : null;
+        String first = params.containsKey(Params.AUTHOR_FIRST) ? params.get(Params.AUTHOR_FIRST)[0] : null;
+        String subj = params.containsKey(Params.SUBJECT) ? params.get(Params.SUBJECT)[0] : null;
+        int courseno = params.containsKey(Params.COURSE) ? Integer.valueOf(params.get(Params.COURSE)[0]) : null;
         req.setAttribute("books", library.getCatalog(uid, isbn, title, last, first, subj, courseno));
+    }
+
+    @Override
+    public void setMetaAttributes(HttpServletRequest req) {
+        req.setAttribute("title", "Catalog");
+        req.setAttribute("app", PAGE_KEY);
     }
 }

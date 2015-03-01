@@ -3,32 +3,33 @@ package edu.pdx.ssn.pages;
 import edu.pdx.ssn.pages.types.AdminPage;
 import edu.pdx.ssn.pages.types.CatalogPage;
 import edu.pdx.ssn.pages.types.CheckoutPage;
+import edu.pdx.ssn.pages.types.DetailsPage;
 import edu.pdx.ssn.pages.types.IndexPage;
 import edu.pdx.ssn.pages.types.LogoutPage;
 
 import java.util.HashMap;
 
 public class PageManager {
+    public static final String DEFAULT_KEY = "idx";
     private static HashMap<String, ServerPage> pages;
-    private static String defaultPage;
 
     static {
         pages = new HashMap<>();
-        defaultPage = "idx";
         registerPages();
     }
 
     // Do all registration of valid applications here
     private static void registerPages() {
-        pages.put("idx", new IndexPage());
-        pages.put("catalog", new CatalogPage());
-        pages.put("checkout", new CheckoutPage());
-        pages.put("admin", new AdminPage());
-        pages.put("logout", new LogoutPage());
+        pages.put(DEFAULT_KEY, new IndexPage());
+        pages.put(CatalogPage.PAGE_KEY, new CatalogPage());
+        pages.put(CheckoutPage.PAGE_KEY, new CheckoutPage());
+        pages.put(AdminPage.PAGE_KEY, new AdminPage());
+        pages.put(LogoutPage.PAGE_KEY, new LogoutPage());
+        pages.put(DetailsPage.PAGE_KEY, new DetailsPage());
     }
 
     public static ServerPage getPage(String key) {
-        return pages.containsKey(key) ? pages.get(key) : (key == null ? pages.get(defaultPage) : getNotFound(key));
+        return pages.containsKey(key) ? pages.get(key) : (key == null ? pages.get(DEFAULT_KEY) : getNotFound(key));
     }
 
     public static ServerPage getNotFound(String key) {

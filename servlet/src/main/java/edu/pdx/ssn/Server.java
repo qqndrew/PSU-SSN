@@ -1,6 +1,7 @@
 package edu.pdx.ssn;
 
 import edu.pdx.ssn.pages.PageManager;
+import edu.pdx.ssn.pages.ServerPage;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,7 +37,6 @@ public final class Server extends HttpServlet implements Sessions {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("Doing get");
         // Construct session
         HttpSession session = req.getSession();
         if (session.isNew()) {
@@ -44,19 +44,22 @@ public final class Server extends HttpServlet implements Sessions {
             session.setAttribute(ADMIN, false);
         }
         // Determine page
-        String page;
+        ServerPage page;
+        String pageKey;
         Map<String, String[]> params = req.getParameterMap();
         if (params.containsKey(Params.APP.getKey())) {
-            String pageKey = params.get(Params.APP.getKey())[0];
+            pageKey = params.get(Params.APP.getKey())[0];
             page = PageManager.getPage(pageKey);
         } else {
             page = PageManager.getPage(null);
+            pageKey = PageManager.DEFAULT_KEY;
         }
-        String title = PageManager.getTitle(page);
-        req.setAttribute("title", title);
-        req.setAttribute("app", page);
+        // Give page opportunity to modify attributes
+        page.setRequestAttributes(req);
+        // Set meta attributes
+        page.setMetaAttributes(req);
         // Redirect to page
-        req.getRequestDispatcher("/WEB-INF/index.jsp?app=" + page).forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/index.jsp?app=" + pageKey).forward(req, resp);
     }
 
 }
