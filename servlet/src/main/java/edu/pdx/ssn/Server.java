@@ -19,20 +19,28 @@ public final class Server extends HttpServlet implements Sessions {
     protected static Server instance;
     protected static ServerConfiguration config;
 
+    public static Server getInstance() {
+        return instance;
+    }
+
+    public static ServerConfiguration getConfig() {
+        return config;
+    }
+
     @Override
     public void init() throws ServletException {
+        instance = this;
         File configFile = new File(CONFIGURATION_FILE_NAME);
-        // Check for presence of configuration file
-        /*if (!configFile.exists()) {
-            throw new ServletException("No configuration file provided!");
+/*        if (!configFile.exists()) {
+
         }
         Yaml configYml = new Yaml();
         try {
             config = new ServerConfiguration((Map<String, Object>)configYml.load(new FileInputStream(configFile)));
-
         } catch (FileNotFoundException e) {
             throw new ServletException("Could not load configuration! This should never be reached.");
-        }*/
+        }
+*/
     }
 
     @Override
