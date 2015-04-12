@@ -17,13 +17,18 @@ public class CatalogPage implements ServerPage {
     @Override
     public void setRequestAttributes(HttpServletRequest req) {
         Map<String, String[]> params = req.getParameterMap();
-        Long uid = params.containsKey(Params.UID) ? Long.valueOf(params.get(Params.UID)[0]) : null;
-        Long isbn = params.containsKey(Params.ISBN) ? Long.valueOf(params.get(Params.ISBN)[0]) : null;
-        String title = params.containsKey(Params.TITLE) ? params.get(Params.TITLE)[0] : null;
-        String last = params.containsKey(Params.AUTHOR_LAST) ? params.get(Params.AUTHOR_LAST)[0] : null;
-        String first = params.containsKey(Params.AUTHOR_FIRST) ? params.get(Params.AUTHOR_FIRST)[0] : null;
-        String subj = params.containsKey(Params.SUBJECT) ? params.get(Params.SUBJECT)[0] : null;
-        int courseno = params.containsKey(Params.COURSE) ? Integer.valueOf(params.get(Params.COURSE)[0]) : null;
+        Long uid = params.containsKey(Params.UID.getKey()) ? Long.valueOf(params.get(Params.UID.getKey())[0]) : null;
+        Long isbn = params.containsKey(Params.ISBN.getKey()) ? Long.valueOf(params.get(Params.ISBN.getKey())[0]) : null;
+        String title = params.containsKey(Params.TITLE.getKey()) ? params.get(Params.TITLE.getKey())[0] : null;
+        String last = params.containsKey(Params.AUTHOR_LAST.getKey()) ? params.get(Params.AUTHOR_LAST.getKey())[0] : null;
+        String first = params.containsKey(Params.AUTHOR_FIRST.getKey()) ? params.get(Params.AUTHOR_FIRST.getKey())[0] : null;
+        String subj = params.containsKey(Params.SUBJECT.getKey()) ? params.get(Params.SUBJECT.getKey())[0] : null;
+        Integer courseno;
+        if (params.containsKey(Params.COURSE.getKey()))
+            courseno = Integer.valueOf(params.get(Params.COURSE.getKey())[0]);
+        else {
+            courseno = null;
+        }
         req.setAttribute("books", library.getCatalog(uid, isbn, title, last, first, subj, courseno));
     }
 
