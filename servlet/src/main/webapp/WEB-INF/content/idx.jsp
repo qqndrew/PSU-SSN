@@ -7,12 +7,20 @@
     Checkout Book
 </a>
 <br>
-<c:if test="${sessionScope.IS_LOGGED_IN && sessionScope.ADMIN}">
-    <a href = "${pageContext.request.contextPath}/?app=admin">
-        Administration Panel
+<c:if test="${sessionScope.IS_LOGGED_IN}">
+    <c:if test="${sessionScope.ADMIN}">
+        <a href = "${pageContext.request.contextPath}/?app=admin">
+            Administration Panel
+        </a>
+        <br>
+    </c:if>
+    <a href = ${pageContext.request.contextPath}/?app=logout">
+        Logout
     </a>
-    <br>
 </c:if>
-<a href = ${pageContext.request.contextPath}/?app=logout">
-    Logout
-</a>
+<c:otherwise>
+    <a href = ${pageContext.request.contextPath}/?app=login">
+        Login
+    </a>
+</c:otherwise>
+
