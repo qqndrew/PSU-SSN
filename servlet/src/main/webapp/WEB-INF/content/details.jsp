@@ -5,7 +5,13 @@
 <p>ISBN: ${book.isbn}</p>
 <p>Author: ${book.authorLast}, ${book.authorFirst}</p>
 <p>Associated Course: ${book.subject} ${book.number}</p>
-<p>Associated Professor: ${book.professors}</p> <!--TODO: multiples-->
+<p>Associated Professors:
+    <ul>
+    <c:forEach var="professor" items="${book.professors}">
+        <li>${professor}</li>
+    </c:forEach>
+    </ul>
+</p>
 <br/>
 <br/>
 <p>Available Copies</p>
