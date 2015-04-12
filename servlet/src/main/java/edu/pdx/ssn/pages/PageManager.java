@@ -5,6 +5,7 @@ import edu.pdx.ssn.pages.types.CatalogPage;
 import edu.pdx.ssn.pages.types.CheckoutPage;
 import edu.pdx.ssn.pages.types.DetailsPage;
 import edu.pdx.ssn.pages.types.IndexPage;
+import edu.pdx.ssn.pages.types.LoginPage;
 import edu.pdx.ssn.pages.types.LogoutPage;
 
 import java.util.HashMap;
@@ -26,13 +27,11 @@ public class PageManager {
         pages.put(AdminPage.PAGE_KEY, new AdminPage());
         pages.put(LogoutPage.PAGE_KEY, new LogoutPage());
         pages.put(DetailsPage.PAGE_KEY, new DetailsPage());
+        pages.put(LoginPage.PAGE_KEY, new LoginPage());
     }
 
     public static ServerPage getPage(String key) {
-        return pages.containsKey(key) ? pages.get(key) : (key == null ? pages.get(DEFAULT_KEY) : getNotFound(key));
+        return pages.containsKey(key) ? pages.get(key) : (key == null ? pages.get(DEFAULT_KEY) : ErrPageManager.getErrorPage(404, key));
     }
 
-    public static ServerPage getNotFound(String key) {
-        return ErrPageManager.getErrorPage(404, key);
-    }
 }
