@@ -5,7 +5,7 @@
 <p>ISBN: ${book.isbn}</p>
 <p>Author: ${book.authorLast}, ${book.authorFirst}</p>
 <p>Associated Course: ${book.subject} ${book.number}</p>
-<p>Associated Professor: ${book.professor}</p> <!--TODO: multiples-->
+<p>Associated Professor: ${book.professors}</p> <!--TODO: multiples-->
 <br/>
 <br/>
 <p>Available Copies</p>

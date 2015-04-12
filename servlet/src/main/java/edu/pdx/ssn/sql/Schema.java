@@ -1,8 +1,8 @@
 package edu.pdx.ssn.sql;
 
 public final class Schema {
-    /* Users Table */
 
+    /* Users Table */
     public static final String USERS_TABLE = "users";
     public static final String USER_UID = "id";
     public static final String USER_EMAIL = "email";
@@ -29,5 +29,8 @@ public final class Schema {
     public static final String BOOK_LOANED = "loaned";
     public static final String BOOK_LOANER_UID = "loaner_uid";
     public static final String BOOK_LOAN_END = "loaner_end";
-
+    // School Information
+    public static final String BOOK_SUBJECT = "subject";
+    public static final String BOOK_COURSE_NUMBER = "courseno";
+    public static final String BOOK_ASSIGNING_PROFESSORS = "professors";
 }
