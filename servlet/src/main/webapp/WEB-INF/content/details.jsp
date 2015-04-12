@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <p>Title: ${book.title}</p>
-<p>ISBN: ${book.isbn}</p>
+<p>ISBN: ${book.ISBN}</p>
 <p>Author: ${book.authorLast}, ${book.authorFirst}</p>
 <p>Associated Course: ${book.subject} ${book.number}</p>
 <p>Associated Professors:
