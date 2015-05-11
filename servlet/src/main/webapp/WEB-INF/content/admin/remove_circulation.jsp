@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="book" scope="request" type="edu.pdx.ssn.application.Book"/>
-<c:if test="${book} != null">
+<c:if test="${book != null}">
   <b>Confirm Details</b>
   <tr>
     <td>ISBN</td>
