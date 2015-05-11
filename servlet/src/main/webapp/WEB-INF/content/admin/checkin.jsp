@@ -12,7 +12,7 @@
     <td>${book.ISBN}</td>
     <td>${book.title}</td>
     <td>${book.authorLast}, ${book.authorFirst}</td>
-    <c:if test="${book.dueDate != 0}">
+    <c:if test="${book.dueDate.time != 0}">
       <td>${book.dueDate.toLocaleString()}</td>
     </c:if>
   </tr>
