@@ -1,2 +1,2 @@
 <p>You have successfully logged out</p>
-<a href="../index.jsp">Main Page</a>
+<a href="${pageContext.request.contextPath}/?app=idx">Main Page</a>
