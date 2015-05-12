@@ -1,7 +1,7 @@
 package edu.pdx.ssn.pages.types;
 
 import edu.pdx.ssn.Params;
-import edu.pdx.ssn.application.Library;
+import edu.pdx.ssn.Server;
 import edu.pdx.ssn.pages.ServerPage;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +11,6 @@ public class CatalogPage implements ServerPage {
 
     public static final String PAGE_KEY = "catalog";
 
-    Library library = null;
 
 
     @Override
@@ -29,7 +28,7 @@ public class CatalogPage implements ServerPage {
         else {
             courseno = null;
         }
-        req.setAttribute("books", library.getCatalog(uid, isbn, title, last, first, subj, courseno));
+        req.setAttribute("books", Server.getLibrary().getCatalog(uid, isbn, title, last, first, subj, courseno));
     }
 
     @Override

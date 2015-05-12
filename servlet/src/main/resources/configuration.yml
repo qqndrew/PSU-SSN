@@ -4,4 +4,3 @@ mysql:
   username: admin
   password: password
   database: ssn
-localization:

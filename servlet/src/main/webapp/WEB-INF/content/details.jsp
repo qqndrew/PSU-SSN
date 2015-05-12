@@ -6,11 +6,11 @@
 <p>Author: ${book.authorLast}, ${book.authorFirst}</p>
 <p>Associated Course: ${book.subject} ${book.number}</p>
 <p>Associated Professors:
-    <ul>
+<ul>
     <c:forEach var="professor" items="${book.professors}">
         <li>${professor}</li>
     </c:forEach>
-    </ul>
+</ul>
 </p>
 <br/>
 <br/>
@@ -22,28 +22,30 @@
         <td>Due Date</td>
         <td>Checkout</td>
     </tr>
-    <c:if test="${books.size} > 0">
-        <c:forEach var="item" items="books">
-            <tr>
-                <td>${item.uid}</td>
-                <c:choose>
-                    <c:when test="${item.in_circulation()}">
-                        <td>Checked In</td>
-                        <td>--</td>
-                        <td><a href = "${pageContext.request.contextPath}/?app=checkout&uid=${item.uid}">Checkout</a></td>
-                    </c:when>
-                    <c:when test="${item.checked_out}">
-                        <td>Checked Out</td>
-                        <td><fmt:formatDate value="${item.due_date}" pattern="MM-dd-yy"/></td>
-                        <td>--</td>
-                    </c:when>
-                    <c:otherwise>
-                        <td>Not in Circulation</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </c:otherwise>
-                </c:choose>
-            </tr>
-        </c:forEach>
-    </c:if>
+    <c:choose>
+        <c:when test="${books.size} > 0">
+            <c:forEach var="item" items="books">
+                <tr>
+                    <td>${item.uid}</td>
+                    <c:choose>
+                        <c:when test="${item.in_circulation()}">
+                            <td>Checked In</td>
+                            <td>--</td>
+                            <td><a href = "${pageContext.request.contextPath}/?app=checkout&uid=${item.uid}">Checkout</a></td>
+                        </c:when>
+                        <c:when test="${item.checked_out}">
+                            <td>Checked Out</td>
+                            <td><fmt:formatDate value="${item.due_date}" pattern="MM-dd-yy"/></td>
+                            <td>--</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td>Not in Circulation</td>
+                            <td>--</td>
+                            <td>--</td>
+                        </c:otherwise>
+                    </c:choose>
+                </tr>
+            </c:forEach>
+        </c:when>
+    </c:choose>
 </table>

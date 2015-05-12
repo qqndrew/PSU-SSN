@@ -1,8 +1,8 @@
 package edu.pdx.ssn.pages.types;
 
 import edu.pdx.ssn.Params;
+import edu.pdx.ssn.Server;
 import edu.pdx.ssn.application.Book;
-import edu.pdx.ssn.application.Library;
 import edu.pdx.ssn.pages.ServerPage;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,13 +13,11 @@ public class DetailsPage implements ServerPage {
 
     public static final String PAGE_KEY = "details";
 
-    Library library = null;
-
     @Override
     public void setRequestAttributes(HttpServletRequest req) {
         Map<String, String[]> params = req.getParameterMap();
         Long isbn = params.containsKey(Params.ISBN) ? Long.valueOf(params.get(Params.ISBN)[0]) : null;
-        List<Book> catalog = library.getCatalog(null, isbn, null, null, null, null, null);
+        List<Book> catalog = Server.getLibrary().getCatalog(null, isbn, null, null, null, null, null);
         req.setAttribute("books", catalog);
         req.setAttribute("book", catalog.isEmpty() ? null : catalog.get(0));
     }

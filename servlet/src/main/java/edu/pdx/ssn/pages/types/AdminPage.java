@@ -10,7 +10,7 @@ public class AdminPage implements ServerPage {
 
     @Override
     public void setRequestAttributes(HttpServletRequest req) {
-        //TODO
+        req.setAttribute("page", req.getParameterMap().containsKey("page") ? req.getParameter("page") : "idx");
     }
 
     @Override
