@@ -3,9 +3,6 @@
     Book Catalog
 </a>
 <br>
-<a href = "${pageContext.request.contextPath}/?app=checkout">
-    Checkout Book
-</a>
 <br>
 <c:choose>
     <c:when test="${sessionScope.IS_LOGGED_IN}">

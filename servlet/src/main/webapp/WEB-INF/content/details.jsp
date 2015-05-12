@@ -31,10 +31,10 @@
                         <c:when test="${item.in_circulation()}">
                             <td>Checked In</td>
                             <td>--</td>
-                            <td><a href = "${pageContext.request.contextPath}/?app=checkout&uid=${item.uid}">Checkout</a></td>
+                            <td><a href = "${pageContext.request.contextPath}/?app=checkout&uid=${item.uid}">Place Hold</a></td>
                         </c:when>
                         <c:when test="${item.checked_out}">
-                            <td>Checked Out</td>
+                            <td>Held or Checked Out</td>
                             <td><fmt:formatDate value="${item.due_date}" pattern="MM-dd-yy"/></td>
                             <td>--</td>
                         </c:when>

@@ -14,10 +14,10 @@
       <c:otherwise>
         <c:choose>
           <c:when test="${library.checkout(book.barcode, sessionScope.USER_ID, due_date)}" >
-            <p>Checkout Successful: your due date is <fmt:formatDate value="${due_date}" pattern="MM-dd-yy"/></p>
+            <p>Hold Successful: please go to the SSN office to pick up your book. Your due date is <fmt:formatDate value="${due_date}" pattern="MM-dd-yy"/></p>
           </c:when>
           <c:otherwise>
-            <p>Checkout Unsuccessful: Most likely someone else checked out the same book before you!</p>
+            <p>Hold Unsuccessful: Most likely someone else placed a hold on the same book before you!</p>
           </c:otherwise>
         </c:choose>
       </c:otherwise>
