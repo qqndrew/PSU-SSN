@@ -14,7 +14,7 @@ public class DetailsPage implements ServerPage {
     public static final String PAGE_KEY = "details";
 
     @Override
-    public void setRequestAttributes(HttpServletRequest req) {
+    public void processRequest(HttpServletRequest req) {
         Map<String, String[]> params = req.getParameterMap();
         Long isbn = params.containsKey(Params.ISBN) ? Long.valueOf(params.get(Params.ISBN)[0]) : null;
         List<Book> catalog = Server.getLibrary().getCatalog(null, isbn, null, null, null, null, null);

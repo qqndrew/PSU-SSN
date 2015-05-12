@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="due_date" value ="${now.time + 6652800000}"/>
 <c:choose>
-  <c:when test="${confirmed}">
+  <c:when test="${requestScope.containsKey(\"confirmed\")}">
     <c:choose>
       <c:when test="!${sessionScope.IS_LOGGED_IN}">
         <p>Error: You must be logged in!</p>

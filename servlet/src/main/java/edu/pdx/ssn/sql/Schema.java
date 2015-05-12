@@ -33,4 +33,5 @@ public final class Schema {
     public static final String BOOK_SUBJECT = "subject";
     public static final String BOOK_COURSE_NUMBER = "courseno";
     public static final String BOOK_ASSIGNING_PROFESSORS = "professors";
+
 }

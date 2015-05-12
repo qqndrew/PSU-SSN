@@ -25,6 +25,7 @@ public final class Server extends HttpServlet implements Sessions {
     protected static Server instance;
     protected static ServerConfiguration config;
     protected static Library library;
+    protected static MySQLConnection conn;
 
     public static Server getInstance() {
         return instance;
@@ -36,6 +37,10 @@ public final class Server extends HttpServlet implements Sessions {
 
     public static Library getLibrary() {
         return library;
+    }
+
+    public static MySQLConnection getConnection() {
+        return conn;
     }
 
     @Override
@@ -53,7 +58,7 @@ public final class Server extends HttpServlet implements Sessions {
             String user = config.getValue("mysql.username");
             String pass = config.getValue("mysql.password");
             String database = config.getValue("mysql.database");
-            MySQLConnection conn = new MySQLConnection(server, port, user, pass, database);
+            conn = new MySQLConnection(server, port, user, pass, database);
             library = new SQLLibrary(conn);
         } catch (FileNotFoundException e) {
             throw new ServletException("Could not load configuration! This should never be reached.");
@@ -80,8 +85,8 @@ public final class Server extends HttpServlet implements Sessions {
             page = PageManager.getPage(null);
             pageKey = PageManager.DEFAULT_KEY;
         }
-        // Give page opportunity to modify attributes
-        page.setRequestAttributes(req);
+        // Process the request and set appropriate attributes
+        page.processRequest(req);
         // Set meta attributes
         page.setMetaAttributes(req);
         // Redirect to page

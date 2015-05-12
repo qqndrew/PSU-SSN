@@ -10,7 +10,7 @@ public class CheckoutPage implements ServerPage {
 
 
     @Override
-    public void setRequestAttributes(HttpServletRequest req) {
+    public void processRequest(HttpServletRequest req) {
         //TODO
     }
 

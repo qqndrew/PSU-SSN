@@ -14,7 +14,7 @@ public class CatalogPage implements ServerPage {
 
 
     @Override
-    public void setRequestAttributes(HttpServletRequest req) {
+    public void processRequest(HttpServletRequest req) {
         Map<String, String[]> params = req.getParameterMap();
         Long uid = params.containsKey(Params.UID.getKey()) ? Long.valueOf(params.get(Params.UID.getKey())[0]) : null;
         Long isbn = params.containsKey(Params.ISBN.getKey()) ? Long.valueOf(params.get(Params.ISBN.getKey())[0]) : null;

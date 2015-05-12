@@ -9,7 +9,7 @@ public class AdminPage implements ServerPage {
     public static String PAGE_KEY = "admin";
 
     @Override
-    public void setRequestAttributes(HttpServletRequest req) {
+    public void processRequest(HttpServletRequest req) {
         req.setAttribute("page", req.getParameterMap().containsKey("page") ? req.getParameter("page") : "idx");
     }
 

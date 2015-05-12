@@ -9,7 +9,7 @@ public class IndexPage implements ServerPage {
     public static final String PAGE_KEY = "idx";
 
     @Override
-    public void setRequestAttributes(HttpServletRequest req) {
+    public void processRequest(HttpServletRequest req) {
         return;
     }
 
