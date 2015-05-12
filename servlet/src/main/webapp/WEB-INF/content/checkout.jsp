@@ -1,13 +1,13 @@
 <jsp:useBean id="book" scope="request" type="edu.pdx.ssn.application.Book"/>
-<jsp:useBean id="now" class="java.util.Date" />
-<jsp:useBean id="library" type="edu.pdx.ssn.application.Library" />
+<jsp:useBean id="due_date" scope="request" class="java.util.Date" />
+<jsp:useBean id="library" scope="request" type="edu.pdx.ssn.application.Library" />
+<jsp:useBean id="confirm" scope="request" type="java.lang.Boolean" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="due_date" value ="${now.time + 6652800000}"/>
 <c:choose>
-  <c:when test="${requestScope.containsKey(\"confirmed\")}">
+  <c:when test="${confirm}">
     <c:choose>
-      <c:when test="!${sessionScope.IS_LOGGED_IN}">
+      <c:when test="${!sessionScope.IS_LOGGED_IN}">
         <p>Error: You must be logged in!</p>
         <jsp:include page="login.jsp" />
       </c:when>

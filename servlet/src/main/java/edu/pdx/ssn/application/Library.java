@@ -9,4 +9,5 @@ public interface Library {
 
     boolean checkout(Long bookUid, UUID userUid, String dueDate);
 
+    Book getBook(long barcode);
 }

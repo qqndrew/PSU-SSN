@@ -74,4 +74,18 @@ public class SQLLibrary implements Library {
         }
         return true;
     }
+
+    @Override
+    public Book getBook(long barcode) {
+        ResultSet result = conn.executeQuery("retrieve_barcode", true, CATALOG_RETRIEVE_UID, barcode);
+        try {
+            if (result.next()) {
+                return new Book(result);
+            }
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
