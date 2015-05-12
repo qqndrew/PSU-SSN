@@ -16,6 +16,7 @@ public class SQLLibrary implements Library {
 
     public SQLLibrary(MySQLConnection connection) {
         this.conn = connection;
+        this.conn.connect();
     }
 
     private static final String CATALOG_CHECKOUT_QUERY = new StringBuilder().append("UPDATE `").append(Schema.BOOKS_TABLE)
@@ -35,8 +36,9 @@ public class SQLLibrary implements Library {
 
     @Override
     public List<Book> getCatalog(Long uid, Long isbn, String title, String last, String first, String subj, Integer courseno) {
+        conn.connect();
         ResultSet result = conn.executeQuery("catalog_retrieval", true, CATALOG_RETRIEVAL_QUERY, uid, isbn,
-                title.toLowerCase(), last.toLowerCase(), first.toLowerCase(), subj.toLowerCase(), courseno);
+                title, last, first, subj, courseno);
         try {
             List<Book> ret = new LinkedList<>();
             while (result.next()) {
@@ -49,6 +51,7 @@ public class SQLLibrary implements Library {
             e.printStackTrace();
             return null;
         }
+
     }
 
     @Override

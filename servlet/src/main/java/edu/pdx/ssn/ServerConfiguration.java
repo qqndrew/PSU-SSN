@@ -13,7 +13,7 @@ public final class ServerConfiguration {
     }
 
     public String getValue(String query) {
-        return containsKey(query) ? String.valueOf(config.get(query)) : null;
+        return String.valueOf(config.get(query));
     }
 
     public boolean containsKey(String query) {

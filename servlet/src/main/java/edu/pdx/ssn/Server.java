@@ -53,16 +53,17 @@ public final class Server extends HttpServlet implements Sessions {
         Yaml configYml = new Yaml();
         try {
             config = new ServerConfiguration((Map<String, Object>)configYml.load(new FileInputStream(configFile)));
-            String server = config.getValue("mysql.server");
-            int port = Integer.valueOf(config.getValue("mysql.port"));
-            String user = config.getValue("mysql.username");
-            String pass = config.getValue("mysql.password");
-            String database = config.getValue("mysql.database");
-            conn = new MySQLConnection(server, port, user, pass, database);
-            library = new SQLLibrary(conn);
         } catch (FileNotFoundException e) {
             throw new ServletException("Could not load configuration! This should never be reached.");
         }
+
+        String server = config.getValue("server");
+        int port = Integer.valueOf(config.getValue("port"));
+        String user = config.getValue("username");
+        String pass = config.getValue("password");
+        String database = config.getValue("database");
+        conn = new MySQLConnection(server, port, user, pass, database);
+        library = new SQLLibrary(conn);
 
     }
 

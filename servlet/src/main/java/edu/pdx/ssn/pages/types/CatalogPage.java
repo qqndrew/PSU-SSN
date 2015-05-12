@@ -18,10 +18,10 @@ public class CatalogPage implements ServerPage {
         Map<String, String[]> params = req.getParameterMap();
         Long uid = params.containsKey(Params.UID.getKey()) ? Long.valueOf(params.get(Params.UID.getKey())[0]) : null;
         Long isbn = params.containsKey(Params.ISBN.getKey()) ? Long.valueOf(params.get(Params.ISBN.getKey())[0]) : null;
-        String title = params.containsKey(Params.TITLE.getKey()) ? params.get(Params.TITLE.getKey())[0] : null;
-        String last = params.containsKey(Params.AUTHOR_LAST.getKey()) ? params.get(Params.AUTHOR_LAST.getKey())[0] : null;
-        String first = params.containsKey(Params.AUTHOR_FIRST.getKey()) ? params.get(Params.AUTHOR_FIRST.getKey())[0] : null;
-        String subj = params.containsKey(Params.SUBJECT.getKey()) ? params.get(Params.SUBJECT.getKey())[0] : null;
+        String title = params.containsKey(Params.TITLE.getKey()) ? params.get(Params.TITLE.getKey())[0].toLowerCase() : null;
+        String last = params.containsKey(Params.AUTHOR_LAST.getKey()) ? params.get(Params.AUTHOR_LAST.getKey())[0].toLowerCase() : null;
+        String first = params.containsKey(Params.AUTHOR_FIRST.getKey()) ? params.get(Params.AUTHOR_FIRST.getKey())[0].toLowerCase() : null;
+        String subj = params.containsKey(Params.SUBJECT.getKey()) ? params.get(Params.SUBJECT.getKey())[0].toLowerCase() : null;
         Integer courseno;
         if (params.containsKey(Params.COURSE.getKey()))
             courseno = Integer.valueOf(params.get(Params.COURSE.getKey())[0]);
