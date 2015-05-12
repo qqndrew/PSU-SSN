@@ -1,17 +1,18 @@
 <jsp:useBean id="book" scope="request" type="edu.pdx.ssn.application.Book"/>
+<jsp:useBean id="books" scope="request" type="java.util.Collection<edu.pdx.ssn.application.Book>"/>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <p>Title: ${book.title}</p>
 <p>ISBN: ${book.ISBN}</p>
 <p>Author: ${book.authorLast}, ${book.authorFirst}</p>
 <p>Associated Course: ${book.subject} ${book.number}</p>
-<p>Associated Professors:
+<p>Associated Professors:</p>
 <ul>
     <c:forEach var="professor" items="${book.professors}">
         <li>${professor}</li>
     </c:forEach>
 </ul>
-</p>
 <br/>
 <br/>
 <p>Available Copies</p>
@@ -23,17 +24,17 @@
         <td>Checkout</td>
     </tr>
     <c:choose>
-        <c:when test="${books.size} > 0">
-            <c:forEach var="item" items="books">
+        <c:when test="${books.size() > 0}">
+            <c:forEach var="item" items="${books}">
                 <tr>
-                    <td>${item.uid}</td>
+                    <td>${item.barcode}</td>
                     <c:choose>
                         <c:when test="${item.in_circulation()}">
                             <td>Checked In</td>
                             <td>--</td>
-                            <td><a href = "${pageContext.request.contextPath}/?app=checkout&uid=${item.uid}">Place Hold</a></td>
+                            <td><a href = "${pageContext.request.contextPath}/?app=checkout&uid=${item.barcode}">Place Hold</a></td>
                         </c:when>
-                        <c:when test="${item.checked_out}">
+                        <c:when test="${item.dueDate.time() != 0}">
                             <td>Held or Checked Out</td>
                             <td><fmt:formatDate value="${item.due_date}" pattern="MM-dd-yy"/></td>
                             <td>--</td>

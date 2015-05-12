@@ -61,9 +61,10 @@ public class MySQLConnection {
                 if (params[i] != null) {
                     ps.setObject(i + 1, params[i]);
                 } else {
-                    ps.setObject(i + 1, starNulls ? "*" : null);
+                    ps.setObject(i + 1, starNulls ? "%" : null);
                 }
             }
+            System.out.println("Ran query: " + ps.toString());
             if (ps.execute()) {
                 return ps.getResultSet();
             } else {
@@ -85,4 +86,11 @@ public class MySQLConnection {
         }
     }
 
+    public void executeQueryRaw(String query) {
+        try {
+            con.prepareStatement(query).execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

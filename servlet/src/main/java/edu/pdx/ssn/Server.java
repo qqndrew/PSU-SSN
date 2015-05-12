@@ -5,6 +5,7 @@ import edu.pdx.ssn.application.SQLLibrary;
 import edu.pdx.ssn.pages.PageManager;
 import edu.pdx.ssn.pages.ServerPage;
 import edu.pdx.ssn.sql.MySQLConnection;
+import edu.pdx.ssn.sql.Schema;
 import org.yaml.snakeyaml.Yaml;
 
 import javax.servlet.ServletException;
@@ -64,7 +65,24 @@ public final class Server extends HttpServlet implements Sessions {
         String database = config.getValue("database");
         conn = new MySQLConnection(server, port, user, pass, database);
         library = new SQLLibrary(conn);
+        setupTables();
+    }
 
+    private void setupTables() {
+        String createUsers = "CREATE TABLE IF NOT EXISTS `" + Schema.USERS_TABLE + "` (`" + Schema.USER_UID + "` INT, `"
+                + Schema.USER_EMAIL + "` VARCHAR(255), `" + Schema.USER_LAST_NAME + "` VARCHAR(255), `"
+                + Schema.USER_FIRST_NAME + "` VARCHAR(255), `" + Schema.USER_PASSWORD_HASH + "` VARBINARY(256), `"
+                + Schema.USER_IS_ADMIN + "` INT, `" + Schema.USER_PHONE + "` VARCHAR(255))";
+        String createBooks = "CREATE TABLE IF NOT EXISTS `" + Schema.BOOKS_TABLE + "` (`"
+                + Schema.BOOK_BARCODE + "` INT, `" + Schema.BOOK_ISBN + "` BIGINT, `"
+                + Schema.BOOK_TITLE + "` VARCHAR(255), `" + Schema.BOOK_AUTHOR_LAST + "` VARCHAR(255), `"
+                + Schema.BOOK_AUTHOR_FIRST + "` VARCHAR(255), `" + Schema.BOOK_CHECKED_OUT + "` INT, `"
+                + Schema.BOOK_BORROW_UID + "` INT, `" + Schema.BOOK_DUE_DATE + "` BIGINT, `"
+                + Schema.BOOK_LOANED + "` BOOL, `" + Schema.BOOK_LOANER_UID + "` INT, `"
+                + Schema.BOOK_LOAN_END + "` BIGINT, `" + Schema.BOOK_SUBJECT + "` VARCHAR(255), `"
+                + Schema.BOOK_COURSE_NUMBER + "` INT, `" + Schema.BOOK_ASSIGNING_PROFESSORS + "` VARCHAR(255))";
+        conn.executeQueryRaw(createBooks);
+        conn.executeQueryRaw(createUsers);
     }
 
     @Override

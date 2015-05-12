@@ -25,10 +25,10 @@ public class SQLLibrary implements Library {
             .append("`=false) AND (`").append(Schema.BOOK_BARCODE).append("`=?))").toString();
 
     private static final String CATALOG_RETRIEVAL_QUERY = new StringBuilder().append("Select * FROM `")
-            .append(Schema.BOOKS_TABLE).append("` WHERE ((`").append(Schema.BOOK_BARCODE).append("`=?) AND (`")
-            .append(Schema.BOOK_ISBN).append("`=?) AND (`").append(Schema.BOOK_TITLE).append("` LIKE ?) AND (`")
-            .append(Schema.BOOK_AUTHOR_LAST).append("`=?) AND (`").append(Schema.BOOK_AUTHOR_FIRST).append("`=?) AND (`")
-            .append(Schema.BOOK_SUBJECT).append("`=?) AND (`").append(Schema.BOOK_COURSE_NUMBER).append("`=?))").toString();
+            .append(Schema.BOOKS_TABLE).append("` WHERE ((`").append(Schema.BOOK_BARCODE).append("` LIKE ?) AND (`")
+            .append(Schema.BOOK_ISBN).append("` LIKE ?) AND (`").append(Schema.BOOK_TITLE).append("` LIKE ?) AND (`")
+            .append(Schema.BOOK_AUTHOR_LAST).append("` LIKE ?) AND (`").append(Schema.BOOK_AUTHOR_FIRST).append("` LIKE ?) AND (`")
+            .append(Schema.BOOK_SUBJECT).append("` LIKE ?) AND (`").append(Schema.BOOK_COURSE_NUMBER).append("` LIKE ?))").toString();
 
     private static final String CATALOG_RETRIEVE_UID = new StringBuilder().append("Select * FROM `")
             .append(Schema.BOOKS_TABLE).append("` WHERE `").append(Schema.BOOK_BARCODE).append("`=?").toString();
@@ -46,6 +46,7 @@ public class SQLLibrary implements Library {
                 Book entry = new Book(result);
                 ret.add(entry);
             }
+            System.out.println("Found books: " + ret.size());
             return ret;
         } catch (SQLException e) {
             e.printStackTrace();
