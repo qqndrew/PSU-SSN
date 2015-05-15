@@ -34,9 +34,9 @@
                             <td>--</td>
                             <td><a href = "${pageContext.request.contextPath}/?app=checkout&uid=${item.barcode}">Place Hold</a></td>
                         </c:when>
-                        <c:when test="${item.dueDate.time() != 0}">
+                        <c:when test="${item.dueDate.time != 0}">
                             <td>Held or Checked Out</td>
-                            <td><fmt:formatDate value="${item.due_date}" pattern="MM-dd-yy"/></td>
+                            <td><fmt:formatDate value="${item.dueDate}" pattern="MM-dd-yy"/></td>
                             <td>--</td>
                         </c:when>
                         <c:otherwise>

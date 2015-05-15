@@ -74,9 +74,9 @@ public final class Server extends HttpServlet implements Sessions {
                 + Schema.USER_FIRST_NAME + "` VARCHAR(255), `" + Schema.USER_PASSWORD_HASH + "` VARBINARY(256), `"
                 + Schema.USER_IS_ADMIN + "` INT, `" + Schema.USER_PHONE + "` VARCHAR(255))";
         String createBooks = "CREATE TABLE IF NOT EXISTS `" + Schema.BOOKS_TABLE + "` (`"
-                + Schema.BOOK_BARCODE + "` INT, `" + Schema.BOOK_ISBN + "` BIGINT, `"
+                + Schema.BOOK_BARCODE + "` BIGINT, `" + Schema.BOOK_ISBN + "` BIGINT, `"
                 + Schema.BOOK_TITLE + "` VARCHAR(255), `" + Schema.BOOK_AUTHOR_LAST + "` VARCHAR(255), `"
-                + Schema.BOOK_AUTHOR_FIRST + "` VARCHAR(255), `" + Schema.BOOK_CHECKED_OUT + "` INT, `"
+                + Schema.BOOK_AUTHOR_FIRST + "` VARCHAR(255), `" + Schema.BOOK_CHECKED_OUT + "` BIGINT, `"
                 + Schema.BOOK_BORROW_UID + "` INT, `" + Schema.BOOK_DUE_DATE + "` BIGINT, `"
                 + Schema.BOOK_LOANED + "` BOOL, `" + Schema.BOOK_LOANER_UID + "` INT, `"
                 + Schema.BOOK_LOAN_END + "` BIGINT, `" + Schema.BOOK_SUBJECT + "` VARCHAR(255), `"

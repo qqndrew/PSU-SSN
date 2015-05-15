@@ -10,4 +10,7 @@ public interface Library {
     boolean checkout(Long bookUid, UUID userUid, String dueDate);
 
     Book getBook(long barcode);
+
+    void createNew(long barcode, long isbn, String title, String last, String first, String profs, String subj, int num, long donor, long ret);
+
 }

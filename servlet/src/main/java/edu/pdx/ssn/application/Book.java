@@ -19,7 +19,7 @@ public class Book {
     // Circulation information
     private boolean checked_out;
     private long checkoutUid;
-    private Date due_date;
+    private Date dueDate;
     private long barcode;
 
     // Book loans
@@ -43,7 +43,7 @@ public class Book {
             number = result.getInt(Schema.BOOK_COURSE_NUMBER);
             checked_out = result.getBoolean(Schema.BOOK_CHECKED_OUT);
             checkoutUid = result.getLong(Schema.BOOK_BORROW_UID);
-            due_date = result.getDate(Schema.BOOK_DUE_DATE);
+            dueDate = result.getDate(Schema.BOOK_DUE_DATE);
             loaned = result.getBoolean(Schema.BOOK_LOANED);
             loanerUid = result.getLong(Schema.BOOK_LOANER_UID);
             loan_end = result.getDate(Schema.BOOK_LOAN_END);
@@ -75,7 +75,7 @@ public class Book {
     }
 
     public Date getDueDate() {
-        return due_date;
+        return dueDate;
     }
 
     public long getBarcode() {

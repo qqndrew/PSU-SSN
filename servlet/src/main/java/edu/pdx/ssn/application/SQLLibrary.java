@@ -33,10 +33,20 @@ public class SQLLibrary implements Library {
     private static final String CATALOG_RETRIEVE_UID = new StringBuilder().append("Select * FROM `")
             .append(Schema.BOOKS_TABLE).append("` WHERE `").append(Schema.BOOK_BARCODE).append("`=?").toString();
 
+    private static final String CREATE_NEW_BOOK = new StringBuilder().append("INSERT INTO `").append(Schema.BOOKS_TABLE)
+            .append("` (").append(Schema.BOOK_BARCODE).append(",").append(Schema.BOOK_ISBN).append(",").append(Schema.BOOK_TITLE).append(",")
+            .append(Schema.BOOK_AUTHOR_LAST).append(",").append(Schema.BOOK_AUTHOR_FIRST).append(Schema.BOOK_ASSIGNING_PROFESSORS).append(",")
+            .append(",").append(Schema.BOOK_SUBJECT).append(",").append(Schema.BOOK_COURSE_NUMBER).append(",").append(Schema.BOOK_LOANER_UID)
+            .append(",").append(Schema.BOOK_LOAN_END).append(") VALUES (").append("?,?,?,?,?,?,?,?,?,?)").toString();
+
+
+    @Override
+    public void createNew(long barcode, long isbn, String title, String last, String first, String profs, String subj, int num, long donor, long ret) {
+        conn.executeQuery("create_new", false, CREATE_NEW_BOOK, barcode, isbn, title, last, first, profs, subj, num, donor);
+    }
 
     @Override
     public List<Book> getCatalog(Long uid, Long isbn, String title, String last, String first, String subj, Integer courseno) {
-        conn.connect();
         ResultSet result = conn.executeQuery("catalog_retrieval", true, CATALOG_RETRIEVAL_QUERY, uid, isbn,
                 title, last, first, subj, courseno);
         try {
@@ -88,4 +98,6 @@ public class SQLLibrary implements Library {
             return null;
         }
     }
+
+
 }
