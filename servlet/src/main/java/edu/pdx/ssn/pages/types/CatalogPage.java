@@ -2,10 +2,15 @@ package edu.pdx.ssn.pages.types;
 
 import edu.pdx.ssn.Params;
 import edu.pdx.ssn.Server;
+import edu.pdx.ssn.application.Book;
 import edu.pdx.ssn.pages.ServerPage;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class CatalogPage implements ServerPage {
 
@@ -28,7 +33,17 @@ public class CatalogPage implements ServerPage {
         else {
             courseno = null;
         }
-        req.setAttribute("books", Server.getLibrary().getCatalog(uid, isbn, title, last, first, subj, courseno));
+        List<Book> coll = Server.getLibrary().getCatalog(uid, isbn, title, last, first, subj, courseno);
+        HashSet<UUID> uniqueParser = new HashSet<>();
+
+        for (Book book : new ArrayList<>(coll)) {
+            if (!uniqueParser.contains(book.getISBN())) {
+                coll.remove(book);
+            } else {
+                continue;
+            }
+        }
+        req.setAttribute("books", coll);
     }
 
     @Override

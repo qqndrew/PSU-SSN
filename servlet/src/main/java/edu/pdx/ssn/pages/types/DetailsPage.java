@@ -16,7 +16,7 @@ public class DetailsPage implements ServerPage {
     @Override
     public void processRequest(HttpServletRequest req) {
         Map<String, String[]> params = req.getParameterMap();
-        Long isbn = params.containsKey(Params.ISBN) ? Long.valueOf(params.get(Params.ISBN)[0]) : null;
+        Long isbn = params.containsKey(Params.ISBN.getKey()) ? Long.valueOf(params.get(Params.ISBN.getKey())[0]) : null;
         List<Book> catalog = Server.getLibrary().getCatalog(null, isbn, null, null, null, null, null);
         req.setAttribute("books", catalog);
         req.setAttribute("book", catalog.isEmpty() ? null : catalog.get(0));

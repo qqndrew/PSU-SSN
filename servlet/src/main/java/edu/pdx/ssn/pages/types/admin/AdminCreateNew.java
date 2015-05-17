@@ -26,7 +26,6 @@ public class AdminCreateNew implements ServerPage {
                 Server.getLibrary().createNew(barcode, isbn, title, last, first, profs, subj, num, donor, ret);
             }
         }
-
     }
 
     @Override
