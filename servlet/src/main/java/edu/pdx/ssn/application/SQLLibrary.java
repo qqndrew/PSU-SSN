@@ -41,8 +41,9 @@ public class SQLLibrary implements Library {
 
 
     @Override
-    public void createNew(long barcode, long isbn, String title, String last, String first, String profs, String subj, int num, long donor, long ret) {
+    public Book createNew(long barcode, long isbn, String title, String last, String first, String profs, String subj, int num, long donor, long ret) {
         conn.executeQuery("create_new", false, CREATE_NEW_BOOK, barcode, isbn, title, last, first, profs, subj, num, donor);
+        return getBook(barcode);
     }
 
     @Override

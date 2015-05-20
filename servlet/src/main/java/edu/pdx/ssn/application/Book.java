@@ -25,11 +25,11 @@ public class Book {
     // Book loans
     private boolean loaned;
     private Date loan_end;
-    private long loanerUid;
+    private Long loanerUid;
 
     // Class information
     private String subject;
-    private int number;
+    private Integer number;
     private Collection<String> professors;
 
     public Book(ResultSet result) {
@@ -52,6 +52,22 @@ public class Book {
             e.printStackTrace();
         }
 
+    }
+
+    public Book(long barcode, long isbn, String title, String last, String first, String profs, String subj, int num, long donor, long ret) {
+        this.barcode = barcode;
+        this.isbn = isbn;
+        this.title = title;
+        this.authorLast = last;
+        this.authorFirst = first;
+        this.professors = Arrays.asList(profs.split("::"));
+        this.subject = subj;
+        this.number = num;
+        if (donor != 0) {
+            this.loaned = true;
+            this.loanerUid = donor;
+            this.loan_end = new Date(ret);
+        }
     }
 
     public boolean in_circulation() {
@@ -86,7 +102,7 @@ public class Book {
         return subject;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
@@ -98,7 +114,7 @@ public class Book {
         return loan_end;
     }
 
-    public long getLoanerUid() {
+    public Long getLoanerUid() {
         return loanerUid;
     }
 }
