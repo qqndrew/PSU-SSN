@@ -51,4 +51,9 @@ public class CatalogPage implements ServerPage {
         req.setAttribute("title", "Catalog");
         req.setAttribute("app", PAGE_KEY);
     }
+
+    @Override
+    public void doPost(HttpServletRequest req) {
+
+    }
 }

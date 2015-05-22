@@ -3,3 +3,5 @@
 <a href="${pageContext.request.contextPath}/?app=admin&page=rem_member">Remove Member</a><br/>
 <a href="${pageContext.request.contextPath}/?app=admin&page=overdue_send">Send overdue notifications</a><br/>
 <a href="${pageContext.request.contextPath}/?app=admin&page=loan_report">View pending loan ends</a><br/>
+
+

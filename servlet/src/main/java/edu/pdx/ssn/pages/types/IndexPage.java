@@ -19,4 +19,9 @@ public class IndexPage implements ServerPage {
         req.setAttribute("title", "Main Page");
         req.setAttribute("app", PAGE_KEY);
     }
+
+    @Override
+    public void doPost(HttpServletRequest req) {
+        return;
+    }
 }

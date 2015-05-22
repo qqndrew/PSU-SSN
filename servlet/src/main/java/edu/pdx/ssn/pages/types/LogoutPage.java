@@ -32,4 +32,9 @@ public class LogoutPage implements ServerPage, Sessions {
         req.setAttribute("title", "Logout");
         req.setAttribute("app", PAGE_KEY);
     }
+
+    @Override
+    public void doPost(HttpServletRequest req) {
+
+    }
 }

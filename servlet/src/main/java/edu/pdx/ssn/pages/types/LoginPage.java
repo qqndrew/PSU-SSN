@@ -23,6 +23,17 @@ public class LoginPage implements ServerPage {
 
     @Override
     public void processRequest(HttpServletRequest req) {
+
+    }
+
+    @Override
+    public void setMetaAttributes(HttpServletRequest req) {
+        req.setAttribute("title", "Login");
+        req.setAttribute("app", PAGE_KEY);
+    }
+
+    @Override
+    public void doPost(HttpServletRequest req) {
         String user = req.getParameter("user").toLowerCase();
         String password = req.getParameter("password");
         try {
@@ -49,11 +60,5 @@ public class LoginPage implements ServerPage {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void setMetaAttributes(HttpServletRequest req) {
-        req.setAttribute("title", "Login");
-        req.setAttribute("app", PAGE_KEY);
     }
 }

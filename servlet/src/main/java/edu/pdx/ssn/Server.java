@@ -19,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
+
 public final class Server extends HttpServlet implements Sessions {
 
     protected static final String CONFIGURATION_FILE_NAME = "configuration.yml";
@@ -110,6 +111,29 @@ public final class Server extends HttpServlet implements Sessions {
         page.setMetaAttributes(req);
         // Redirect to page
         req.getRequestDispatcher("/WEB-INF/index.jsp?app=" + pageKey).forward(req, resp);
+    }
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        // Construct session
+        HttpSession session = req.getSession();
+        if (session.isNew()) {
+            session.setAttribute(IS_LOGGED_IN, false);
+            session.setAttribute(ADMIN, false);
+        }
+        // Determine page
+        ServerPage page;
+        String pageKey;
+        Map<String, String[]> params = req.getParameterMap();
+        if (params.containsKey(Params.APP.getKey())) {
+            pageKey = params.get(Params.APP.getKey())[0];
+            page = PageManager.getPage(pageKey);
+        } else {
+            page = PageManager.getPage(null);
+            pageKey = PageManager.DEFAULT_KEY;
+        }
+        // Forward post request
+        page.doPost(req);
     }
 
 }

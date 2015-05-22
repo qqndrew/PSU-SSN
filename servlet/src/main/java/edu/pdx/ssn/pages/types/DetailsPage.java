@@ -28,4 +28,9 @@ public class DetailsPage implements ServerPage {
                 + ((Book)req.getAttribute("book")).getTitle() : "Book Details - Not Found!");
         req.setAttribute("app", PAGE_KEY);
     }
+
+    @Override
+    public void doPost(HttpServletRequest req) {
+
+    }
 }

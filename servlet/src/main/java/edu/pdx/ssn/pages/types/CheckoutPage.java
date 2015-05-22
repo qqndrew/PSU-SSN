@@ -25,4 +25,9 @@ public class CheckoutPage implements ServerPage {
         req.setAttribute("title", "Checkout");
         req.setAttribute("app", PAGE_KEY);
     }
+
+    @Override
+    public void doPost(HttpServletRequest req) {
+
+    }
 }

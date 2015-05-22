@@ -43,4 +43,17 @@ public class AdminPage implements ServerPage {
             action.setMetaAttributes(req);
         }
     }
+
+    @Override
+    public void doPost(HttpServletRequest req) { // Forward to relevant page
+        String page = req.getParameterMap().containsKey("page") ? req.getParameter("page").toLowerCase() : "idx";
+        if (!pages.containsKey(page)) {
+            page = "idx";
+        }
+        ServerPage action = pages.get(page);
+        if (action != null) {
+            action.doPost(req);
+        }
+        req.setAttribute("page", page);
+    }
 }

@@ -7,4 +7,6 @@ public interface ServerPage {
     void processRequest(HttpServletRequest req);
 
     void setMetaAttributes(HttpServletRequest req);
+
+    void doPost(HttpServletRequest req);
 }
