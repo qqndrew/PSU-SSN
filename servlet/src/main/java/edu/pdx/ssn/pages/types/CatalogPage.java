@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class CatalogPage implements ServerPage {
 
@@ -34,13 +33,13 @@ public class CatalogPage implements ServerPage {
             courseno = null;
         }
         List<Book> coll = Server.getLibrary().getCatalog(uid, isbn, title, last, first, subj, courseno);
-        HashSet<UUID> uniqueParser = new HashSet<>();
+        HashSet<Long> uniqueParser = new HashSet<>();
 
         for (Book book : new ArrayList<>(coll)) {
-            if (!uniqueParser.contains(book.getISBN())) {
+            if (uniqueParser.contains(book.getISBN())) {
                 coll.remove(book);
             } else {
-                continue;
+                uniqueParser.add(book.getISBN());
             }
         }
         req.setAttribute("books", coll);
