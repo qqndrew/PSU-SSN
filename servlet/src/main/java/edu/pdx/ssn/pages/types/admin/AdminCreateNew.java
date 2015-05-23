@@ -29,9 +29,9 @@ public class AdminCreateNew implements ServerPage {
             String profs = req.getParameter("profs");
             profs = profs.replaceAll(",", "::");
             String subj = req.getParameter("subj");
-            int num = Integer.valueOf(req.getParameter("num"));
-            long donor = Long.valueOf(req.getParameter("donor") == null ? "0" : req.getParameter("donor"));
-            long ret = Long.valueOf(req.getParameter("return") == null ? "0" : req.getParameter("return"));
+            int num = Integer.valueOf(req.getParameter("num") == "" ? "0" : req.getParameter("num"));
+            long donor = Long.valueOf(req.getParameter("donor") == "" ? "0" : req.getParameter("donor"));
+            long ret = Long.valueOf(req.getParameter("return") == "" ? "0" : req.getParameter("return"));
             req.setAttribute("book", Server.getLibrary().createNew(barcode, isbn, title, last, first, profs, subj, num, donor, ret));
             req.setAttribute("confirm", true);
         }
