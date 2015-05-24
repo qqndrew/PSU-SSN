@@ -41,12 +41,17 @@ public class Book {
             authorFirst = result.getString(Schema.BOOK_AUTHOR_FIRST);
             subject = result.getString(Schema.BOOK_SUBJECT);
             number = result.getInt(Schema.BOOK_COURSE_NUMBER);
+            if (number == 0) {
+                number = null;
+            }
             checked_out = result.getBoolean(Schema.BOOK_CHECKED_OUT);
             checkoutUid = result.getLong(Schema.BOOK_BORROW_UID);
-            dueDate = result.getDate(Schema.BOOK_DUE_DATE);
+            long temp = result.getLong(Schema.BOOK_DUE_DATE);
+            dueDate = temp == 0 ? null : new Date(temp);
             loaned = result.getBoolean(Schema.BOOK_LOANED);
             loanerUid = result.getLong(Schema.BOOK_LOANER_UID);
-            loan_end = result.getDate(Schema.BOOK_LOAN_END);
+            temp = result.getLong(Schema.BOOK_LOAN_END);
+            loan_end = temp == 0 ? null : new Date(temp);
             professors = Arrays.asList(result.getString(Schema.BOOK_ASSIGNING_PROFESSORS).split("::"));
         } catch (SQLException e) {
             e.printStackTrace();
