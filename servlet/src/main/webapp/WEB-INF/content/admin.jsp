@@ -1,7 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--<c:choose>--%>
   <%--<c:when test="${sessionScope.IS_LOGGED_IN} && ${sessionScope.ADMIN}">--%>
-    <jsp:include page="/WEB-INF/content/admin_page/${param.page}.jsp"/>
+    <jsp:useBean id="admpage" scope="request" type="java.lang.String"/>
+    <jsp:include page="/WEB-INF/content/admin_page/${admpage}.jsp"/>
   <%--</c:when>--%>
   <%--<c:otherwise>--%>
     <%--<c:choose>--%>

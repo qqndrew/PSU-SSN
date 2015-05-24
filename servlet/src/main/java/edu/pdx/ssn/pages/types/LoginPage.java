@@ -5,8 +5,11 @@ import edu.pdx.ssn.Sessions;
 import edu.pdx.ssn.pages.ServerPage;
 import edu.pdx.ssn.sql.Schema;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -33,7 +36,7 @@ public class LoginPage implements ServerPage {
     }
 
     @Override
-    public void doPost(HttpServletRequest req) {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) {
         String user = req.getParameter("user").toLowerCase();
         String password = req.getParameter("password");
         try {
@@ -49,15 +52,22 @@ public class LoginPage implements ServerPage {
                 s.setAttribute(Sessions.EMAIL, result.getString(Schema.USER_EMAIL));
                 s.setAttribute(Sessions.PHONE, result.getString(Schema.USER_PHONE));
                 s.setAttribute(Sessions.ADMIN, result.getBoolean(Schema.USER_IS_ADMIN));
-                req.setAttribute("success", true);
+                req.setAttribute("app", "idx");
+                req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
             } else {
-                req.setAttribute("success", false);
+                req.setAttribute("message", "Information Incorrect, please try again");
+                req.setAttribute("app", "login");
+                req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

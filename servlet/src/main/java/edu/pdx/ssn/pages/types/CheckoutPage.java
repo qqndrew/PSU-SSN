@@ -4,6 +4,7 @@ import edu.pdx.ssn.Server;
 import edu.pdx.ssn.pages.ServerPage;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 public class CheckoutPage implements ServerPage {
@@ -27,7 +28,7 @@ public class CheckoutPage implements ServerPage {
     }
 
     @Override
-    public void doPost(HttpServletRequest req) {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) {
 
     }
 }

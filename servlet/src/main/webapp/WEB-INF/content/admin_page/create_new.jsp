@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <c:choose>
     <c:when test="${requestScope.containsKey(\"confirm\")}">
         <jsp:useBean id="book" scope="request" type="edu.pdx.ssn.application.Book"/>

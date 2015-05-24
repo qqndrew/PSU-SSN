@@ -1,6 +1,7 @@
 package edu.pdx.ssn.pages;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public interface ServerPage {
 
@@ -8,5 +9,5 @@ public interface ServerPage {
 
     void setMetaAttributes(HttpServletRequest req);
 
-    void doPost(HttpServletRequest req);
+    void doPost(HttpServletRequest req, HttpServletResponse resp);
 }

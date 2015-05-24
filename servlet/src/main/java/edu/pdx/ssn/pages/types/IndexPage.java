@@ -3,6 +3,7 @@ package edu.pdx.ssn.pages.types;
 import edu.pdx.ssn.pages.ServerPage;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class IndexPage implements ServerPage {
 
@@ -21,7 +22,7 @@ public class IndexPage implements ServerPage {
     }
 
     @Override
-    public void doPost(HttpServletRequest req) {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) {
         return;
     }
 }

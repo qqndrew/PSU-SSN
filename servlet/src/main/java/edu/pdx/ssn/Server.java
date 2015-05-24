@@ -133,7 +133,7 @@ public final class Server extends HttpServlet implements Sessions {
             pageKey = PageManager.DEFAULT_KEY;
         }
         // Forward post request
-        page.doPost(req);
+        page.doPost(req, resp);
     }
 
 }

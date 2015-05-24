@@ -4,6 +4,7 @@ import edu.pdx.ssn.Sessions;
 import edu.pdx.ssn.pages.ServerPage;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class LogoutPage implements ServerPage, Sessions {
@@ -34,7 +35,7 @@ public class LogoutPage implements ServerPage, Sessions {
     }
 
     @Override
-    public void doPost(HttpServletRequest req) {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) {
 
     }
 }
