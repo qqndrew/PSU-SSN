@@ -5,6 +5,7 @@ import edu.pdx.ssn.sql.Schema;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -19,60 +20,87 @@ public class SQLLibrary implements Library {
         this.conn.connect();
     }
 
-    private static final String CATALOG_CHECKOUT_QUERY = new StringBuilder().append("UPDATE `").append(Schema.BOOKS_TABLE)
-            .append("` SET `").append(Schema.BOOK_CHECKED_OUT).append("`=true, `").append(Schema.BOOK_BORROW_UID)
-            .append("`=?, `").append(Schema.BOOK_DUE_DATE).append("`=? WHERE ((`").append(Schema.BOOK_CHECKED_OUT)
-            .append("`=false) AND (`").append(Schema.BOOK_BARCODE).append("`=?))").toString();
+    private static final String RECORDS_CHECKOUT = "UPDATE `" + Schema.RECORDS_TABLE + "` SET `"
+            + Schema.RECORD_CHECKED_OUT + "`=true, `" + Schema.RECORD_BORROW_UID + "`=?, `" + Schema.RECORD_DUE_DATE
+            + "`=? WHERE ((`" + Schema.RECORD_CHECKED_OUT + "`=false) AND (`" + Schema.RECORD_BARCODE + "`=?))";
 
-    private static final String CATALOG_RETRIEVAL_QUERY = new StringBuilder().append("Select * FROM `")
-            .append(Schema.BOOKS_TABLE).append("` WHERE ((`").append(Schema.BOOK_BARCODE).append("` LIKE ?) AND (`")
-            .append(Schema.BOOK_ISBN).append("` LIKE ?) AND (`").append(Schema.BOOK_TITLE).append("` LIKE ?) AND (`")
-            .append(Schema.BOOK_AUTHOR_LAST).append("` LIKE ?) AND (`").append(Schema.BOOK_AUTHOR_FIRST).append("` LIKE ?) AND (`")
-            .append(Schema.BOOK_SUBJECT).append("` LIKE ?) AND (`").append(Schema.BOOK_COURSE_NUMBER).append("` LIKE ?))").toString();
+    private static final String CATALOG_RETRIEVAL_QUERY = "Select * FROM `" + Schema.BOOKS_TABLE + "` WHERE ((`"
+            + Schema.BOOK_ISBN + "` LIKE ?) AND (`" + Schema.BOOK_TITLE + "` LIKE ?) AND (`" + Schema.BOOK_AUTHOR_LAST
+            + "` LIKE ?) AND (`" + Schema.BOOK_AUTHOR_FIRST + "` LIKE ?) AND (`" + Schema.BOOK_SUBJECT
+            + "` LIKE ?) AND (`" + Schema.BOOK_COURSE_NUMBER + "` LIKE ?))";
 
-    private static final String CATALOG_RETRIEVE_UID = new StringBuilder().append("Select * FROM `")
-            .append(Schema.BOOKS_TABLE).append("` WHERE `").append(Schema.BOOK_BARCODE).append("`=?").toString();
+    private static final String RECORDS_RETRIEVE_ISBN = "Select * FROM `" + Schema.RECORDS_TABLE + "` WHERE `"
+            + Schema.RECORD_ISBN + "`=?";
 
-    private static final String CREATE_NEW_BOOK = new StringBuilder().append("INSERT INTO `").append(Schema.BOOKS_TABLE)
-            .append("` (").append(Schema.BOOK_BARCODE).append(",").append(Schema.BOOK_ISBN).append(",").append(Schema.BOOK_TITLE).append(",")
-            .append(Schema.BOOK_AUTHOR_LAST).append(",").append(Schema.BOOK_AUTHOR_FIRST).append(",").append(Schema.BOOK_ASSIGNING_PROFESSORS)
-            .append(",").append(Schema.BOOK_SUBJECT).append(",").append(Schema.BOOK_COURSE_NUMBER).append(",").append(Schema.BOOK_LOANER_UID)
-            .append(",").append(Schema.BOOK_LOAN_END).append(") VALUES (").append("?,?,?,?,?,?,?,?,?,?)").toString();
+    private static final String RECORDS_RETRIEVE_BARCODE = "SELECT * FROM `" + Schema.RECORDS_TABLE + "` WHERE `"
+            + Schema.RECORD_BARCODE + "`=?";
 
+    private static final String CREATE_NEW_BOOK = "INSERT INTO `" + Schema.BOOKS_TABLE + "` (" + Schema.BOOK_ISBN + ","
+            + Schema.BOOK_TITLE + "," + Schema.BOOK_AUTHOR_LAST + "," + Schema.BOOK_AUTHOR_FIRST + ","
+            + Schema.BOOK_ASSIGNING_PROFESSORS + "," + Schema.BOOK_SUBJECT + "," + Schema.BOOK_COURSE_NUMBER
+            + ") VALUES (" + "?,?,?,?,?,?,?,?,?,?)";
+
+    private static final String CREATE_NEW_RECORD = "INSERT INTO `" + Schema.RECORDS_TABLE + "` ("
+            + Schema.RECORD_BARCODE + "," + Schema.RECORD_ISBN + "," + Schema.RECORD_LOANED + ","
+            + Schema.RECORD_LOANER_UID + "," + Schema.RECORD_LOAN_END + ") VALUES (?,?,?,?,?)";
 
     @Override
-    public Book createNew(long barcode, long isbn, String title, String last, String first, String profs, String subj, int num, long donor, long ret) {
-        conn.executeQuery("create_new", false, CREATE_NEW_BOOK, barcode, isbn, title, last, first, profs, subj, num == 0 ? null : donor, donor == 0 ? null : donor, ret == 0 ? null : ret);
-        return getBook(barcode);
+    public Book createNew(long isbn, String title, String last, String first, String profs, String subj, int num) {
+        conn.executeQuery("create_new_book", false, CREATE_NEW_BOOK, isbn, title, last, first, profs, subj, num == 0 ? null : num);
+        return getBook(isbn);
     }
 
     @Override
-    public List<Book> getCatalog(Long uid, Long isbn, String title, String last, String first, String subj, Integer courseno) {
-        ResultSet result = conn.executeQuery("catalog_retrieval", true, CATALOG_RETRIEVAL_QUERY, uid, isbn,
+    public Collection<Record> getRecords(long isbn) {
+        ResultSet rs = conn.executeQuery("records_retrieve_isbn", false, RECORDS_RETRIEVE_ISBN, isbn);
+        Collection<Record> ret = new LinkedList<>();
+        try {
+            while (rs.next()) {
+                ret.add(new Record(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
+    @Override
+    public Record getRecord(long barcode) {
+        ResultSet rs = conn.executeQuery("records_retrieve_barcode", false, RECORDS_RETRIEVE_BARCODE, barcode);
+        try {
+            if (rs.next()) {
+                return new Record(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Book> getCatalog(Long isbn, String title, String last, String first, String subj, Integer courseno) {
+        ResultSet result = conn.executeQuery("catalog_retrieval", true, CATALOG_RETRIEVAL_QUERY, isbn,
                 title, last, first, subj, courseno);
         try {
             List<Book> ret = new LinkedList<>();
             while (result.next()) {
-                // TODO: Cache books
                 Book entry = new Book(result);
                 ret.add(entry);
             }
-            System.out.println("Found books: " + ret.size());
             return ret;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
-
     }
 
     @Override
     public boolean checkout(Long bookUid, UUID userUid, String dueDate) {
-        conn.executeQuery("catalog_checkout", true, CATALOG_CHECKOUT_QUERY, userUid, dueDate, bookUid);
-        ResultSet result = conn.executeQuery("retrieve_barcode", true, CATALOG_RETRIEVE_UID, bookUid);
+        conn.executeQuery("records", true, RECORDS_CHECKOUT, userUid, dueDate, bookUid);
+        ResultSet result = conn.executeQuery("records_retrieve_isbn", true, RECORDS_RETRIEVE_ISBN, bookUid);
         try {
             if (result.next()) {
-                String res = result.getString(Schema.BOOK_BORROW_UID);
+                String res = result.getString(Schema.RECORD_BORROW_UID);
                 if (res == null) {
                     return false;
                 } else {
@@ -83,21 +111,12 @@ public class SQLLibrary implements Library {
             e.printStackTrace();
             return false;
         }
-        return true;
+        return false;
     }
 
     @Override
-    public Book getBook(long barcode) {
-        ResultSet result = conn.executeQuery("retrieve_barcode", true, CATALOG_RETRIEVE_UID, barcode);
-        try {
-            if (result.next()) {
-                return new Book(result);
-            }
-            return null;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public Book getBook(long isbn) {
+        return BookRegistry.getBook(isbn);
     }
 
 

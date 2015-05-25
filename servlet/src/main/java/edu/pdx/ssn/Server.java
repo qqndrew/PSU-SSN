@@ -75,15 +75,18 @@ public final class Server extends HttpServlet implements Sessions {
                 + Schema.USER_FIRST_NAME + "` VARCHAR(255), `" + Schema.USER_PASSWORD_HASH + "` VARBINARY(256), `"
                 + Schema.USER_IS_ADMIN + "` INT, `" + Schema.USER_PHONE + "` VARCHAR(255))";
         String createBooks = "CREATE TABLE IF NOT EXISTS `" + Schema.BOOKS_TABLE + "` (`"
-                + Schema.BOOK_BARCODE + "` BIGINT, `" + Schema.BOOK_ISBN + "` BIGINT, `"
-                + Schema.BOOK_TITLE + "` VARCHAR(255), `" + Schema.BOOK_AUTHOR_LAST + "` VARCHAR(255), `"
-                + Schema.BOOK_AUTHOR_FIRST + "` VARCHAR(255), `" + Schema.BOOK_CHECKED_OUT + "` BIGINT, `"
-                + Schema.BOOK_BORROW_UID + "` INT, `" + Schema.BOOK_DUE_DATE + "` BIGINT, `"
-                + Schema.BOOK_LOANED + "` BOOL, `" + Schema.BOOK_LOANER_UID + "` INT, `"
-                + Schema.BOOK_LOAN_END + "` BIGINT, `" + Schema.BOOK_SUBJECT + "` VARCHAR(255), `"
-                + Schema.BOOK_COURSE_NUMBER + "` INT, `" + Schema.BOOK_ASSIGNING_PROFESSORS + "` VARCHAR(255))";
+                + Schema.BOOK_ISBN + "` BIGINT, `" + Schema.BOOK_TITLE + "` VARCHAR(255), `"
+                + Schema.BOOK_AUTHOR_LAST + "` VARCHAR(255), `" + Schema.BOOK_AUTHOR_FIRST + "` VARCHAR(255), `"
+                + Schema.BOOK_SUBJECT + "` VARCHAR(255), `" + Schema.BOOK_COURSE_NUMBER + "` INT, `"
+                + Schema.BOOK_ASSIGNING_PROFESSORS + "` VARCHAR(255))";
+        String createRecords = "CREATE TABLE IF NOT EXISTS `" + Schema.RECORDS_TABLE + "` (`"
+                + Schema.RECORD_BARCODE + "` BIGINT, `" + Schema.RECORD_CHECKED_OUT + "` TINYINT, `"
+                + Schema.RECORD_BORROW_UID + "` BIGINT, `" + Schema.RECORD_DUE_DATE + "` BIGINT, `"
+                + Schema.RECORD_LOANED + "` BOOL, `" + Schema.RECORD_LOANER_UID + "` BIGINT, `"
+                + Schema.RECORD_LOAN_END + "` BIGINT)";
         conn.executeQueryRaw(createBooks);
         conn.executeQueryRaw(createUsers);
+        conn.executeQueryRaw(createRecords);
     }
 
     @Override

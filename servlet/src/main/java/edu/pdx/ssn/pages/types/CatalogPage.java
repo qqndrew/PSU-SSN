@@ -7,8 +7,6 @@ import edu.pdx.ssn.pages.ServerPage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +19,6 @@ public class CatalogPage implements ServerPage {
     @Override
     public void processRequest(HttpServletRequest req) {
         Map<String, String[]> params = req.getParameterMap();
-        Long uid = params.containsKey(Params.UID.getKey()) ? Long.valueOf(params.get(Params.UID.getKey())[0]) : null;
         Long isbn = params.containsKey(Params.ISBN.getKey()) ? Long.valueOf(params.get(Params.ISBN.getKey())[0]) : null;
         String title = params.containsKey(Params.TITLE.getKey()) ? params.get(Params.TITLE.getKey())[0].toLowerCase() : null;
         String last = params.containsKey(Params.AUTHOR_LAST.getKey()) ? params.get(Params.AUTHOR_LAST.getKey())[0].toLowerCase() : null;
@@ -33,16 +30,7 @@ public class CatalogPage implements ServerPage {
         else {
             courseno = null;
         }
-        List<Book> coll = Server.getLibrary().getCatalog(uid, isbn, title, last, first, subj, courseno);
-        HashSet<Long> uniqueParser = new HashSet<>();
-
-        for (Book book : new ArrayList<>(coll)) {
-            if (uniqueParser.contains(book.getISBN())) {
-                coll.remove(book);
-            } else {
-                uniqueParser.add(book.getISBN());
-            }
-        }
+        List<Book> coll = Server.getLibrary().getCatalog(isbn, title, last, first, subj, courseno);
         req.setAttribute("books", coll);
     }
 

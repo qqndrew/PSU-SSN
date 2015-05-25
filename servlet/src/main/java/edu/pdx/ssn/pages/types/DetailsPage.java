@@ -3,11 +3,13 @@ package edu.pdx.ssn.pages.types;
 import edu.pdx.ssn.Params;
 import edu.pdx.ssn.Server;
 import edu.pdx.ssn.application.Book;
+import edu.pdx.ssn.application.BookRegistry;
+import edu.pdx.ssn.application.Record;
 import edu.pdx.ssn.pages.ServerPage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 
 public class DetailsPage implements ServerPage {
@@ -18,9 +20,9 @@ public class DetailsPage implements ServerPage {
     public void processRequest(HttpServletRequest req) {
         Map<String, String[]> params = req.getParameterMap();
         Long isbn = params.containsKey(Params.ISBN.getKey()) ? Long.valueOf(params.get(Params.ISBN.getKey())[0]) : null;
-        List<Book> catalog = Server.getLibrary().getCatalog(null, isbn, null, null, null, null, null);
+        Collection<Record> catalog = Server.getLibrary().getRecords(isbn);
         req.setAttribute("books", catalog);
-        req.setAttribute("book", catalog.isEmpty() ? null : catalog.get(0));
+        req.setAttribute("book", BookRegistry.getBook(isbn));
     }
 
     @Override

@@ -24,7 +24,6 @@ public class AdminCreateNew implements ServerPage {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) {
         if (req.getAttribute("confirm") == null) {
-            long barcode = Long.valueOf(req.getParameter("code"));
             long isbn = Long.valueOf(req.getParameter("isbn"));
             String title = req.getParameter("title");
             String last = req.getParameter("last");
@@ -33,9 +32,7 @@ public class AdminCreateNew implements ServerPage {
             profs = profs.replaceAll(",", "::");
             String subj = req.getParameter("subj");
             int num = Integer.valueOf(req.getParameter("num") == "" ? "0" : req.getParameter("num"));
-            long donor = Long.valueOf(req.getParameter("donor") == "" ? "0" : req.getParameter("donor"));
-            long ret = Long.valueOf(req.getParameter("return") == "" ? "0" : req.getParameter("return"));
-            req.setAttribute("book", Server.getLibrary().createNew(barcode, isbn, title, last, first, profs, subj, num, donor, ret));
+            req.setAttribute("book", Server.getLibrary().createNew(isbn, title, last, first, profs, subj, num));
             req.setAttribute("confirm", true);
             try {
                 req.setAttribute("app", "admin");

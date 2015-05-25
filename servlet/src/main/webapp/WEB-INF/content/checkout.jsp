@@ -1,4 +1,4 @@
-<jsp:useBean id="book" scope="request" type="edu.pdx.ssn.application.Book"/>
+<jsp:useBean id="record" scope="request" type="edu.pdx.ssn.application.Record"/>
 <jsp:useBean id="due_date" scope="request" class="java.util.Date" />
 <jsp:useBean id="library" scope="request" type="edu.pdx.ssn.application.Library" />
 <jsp:useBean id="confirm" scope="request" type="java.lang.Boolean" />
@@ -24,6 +24,7 @@
     </c:choose>
   </c:when>
   <c:otherwise>
+    <c:set var="book" value="${record.book}"/>
     <p>Title: ${book.title}</p>
     <p>ISBN: ${book.ISBN}</p>
     <p>Author: ${book.authorLast}, ${book.authorFirst}</p>

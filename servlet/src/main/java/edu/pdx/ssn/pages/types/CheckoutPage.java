@@ -15,7 +15,7 @@ public class CheckoutPage implements ServerPage {
     @Override
     public void processRequest(HttpServletRequest req) {
         int barcode = Integer.valueOf(req.getParameter("uid"));
-        req.setAttribute("book", Server.getLibrary().getBook(barcode));
+        req.setAttribute("record", Server.getLibrary().getRecord(barcode));
         req.setAttribute("library", Server.getLibrary());
         req.setAttribute("due_date", new Date(System.currentTimeMillis() + 6652800000L));
         req.setAttribute("confirm", req.getParameter("confirm") == null ? false : Boolean.valueOf(req.getParameter("confirm")));

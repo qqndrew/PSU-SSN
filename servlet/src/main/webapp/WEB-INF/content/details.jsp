@@ -1,5 +1,5 @@
 <jsp:useBean id="book" scope="request" type="edu.pdx.ssn.application.Book"/>
-<jsp:useBean id="books" scope="request" type="java.util.Collection<edu.pdx.ssn.application.Book>"/>
+<jsp:useBean id="books" scope="request" type="java.util.Collection<edu.pdx.ssn.application.Record>"/>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
