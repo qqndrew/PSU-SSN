@@ -52,7 +52,7 @@ public class RegisterPage implements ServerPage {
             }
         } else {
             try {
-                if (!Server.getConnection().executeQuery("lookupemail", false, LOOKUP_QUERY, user).next()) {
+                if (Server.getConnection().executeQuery("lookupemail", false, LOOKUP_QUERY, user).next()) {
                     req.setAttribute("errmessage", "A registration already exists for this email address!");
                     req.setAttribute("app", "register");
                     req.getRequestDispatcher("/WEB-INF/index.jsp?app=register").forward(req, resp);
