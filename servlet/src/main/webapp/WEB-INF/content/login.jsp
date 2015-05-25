@@ -6,7 +6,7 @@
         <a href="${pageContext.request.contextPath}/?app=logout">Logout</a>
     </c:when>
     <c:otherwise>
-        <%--@elvariable id="message" type="java.lang.String"--%>
+        <jsp:useBean id="message" scope="request" type="java.lang.String"/>
         <c:if test="${not empty message}">
             <p>${message}</p>
         </c:if>
@@ -15,6 +15,7 @@
             <p>Password:<input type="password" name="password" size=10 value="" maxlength=255></p>
             <input type="submit" value="Login">
         </form>
+        <a href="${pageContext.request.contextPath}/?app=register">Register an Account</a>
     </c:otherwise>
 </c:choose>
 

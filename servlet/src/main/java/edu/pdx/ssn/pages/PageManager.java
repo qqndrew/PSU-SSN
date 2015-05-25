@@ -7,6 +7,7 @@ import edu.pdx.ssn.pages.types.DetailsPage;
 import edu.pdx.ssn.pages.types.IndexPage;
 import edu.pdx.ssn.pages.types.LoginPage;
 import edu.pdx.ssn.pages.types.LogoutPage;
+import edu.pdx.ssn.pages.types.RegisterPage;
 
 import java.util.HashMap;
 
@@ -28,6 +29,7 @@ public class PageManager {
         pages.put(LogoutPage.PAGE_KEY, new LogoutPage());
         pages.put(DetailsPage.PAGE_KEY, new DetailsPage());
         pages.put(LoginPage.PAGE_KEY, new LoginPage());
+        pages.put(RegisterPage.PAGE_KEY, new RegisterPage());
     }
 
     public static ServerPage getPage(String key) {

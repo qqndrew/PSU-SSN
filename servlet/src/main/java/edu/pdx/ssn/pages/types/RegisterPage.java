@@ -18,6 +18,7 @@ public class RegisterPage implements ServerPage {
             + Schema.USER_PHONE + "` VALUES (?,?,?,?,?)";
     private static String LOOKUP_QUERY = "SELECT * FROM `" + Schema.USERS_TABLE + "` WHERE " +
             "`" + Schema.USER_EMAIL + "`=?";
+    public static String PAGE_KEY = "register";
 
     @Override
     public void processRequest(HttpServletRequest req) {
