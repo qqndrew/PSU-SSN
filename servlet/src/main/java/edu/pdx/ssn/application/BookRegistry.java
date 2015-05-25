@@ -21,7 +21,7 @@ public class BookRegistry {
             .append(Schema.BOOK_COURSE_NUMBER).append("` LIKE ?))").toString();
 
     BookRegistry() throws SQLException {
-        ResultSet result = Server.getConnection().executeQuery("registry_init", true, CATALOG_RETRIEVAL_QUERY);
+        ResultSet result = Server.getConnection().executeQuery("registry_init", true, CATALOG_RETRIEVAL_QUERY, null, null, null, null, null, null);
         registry = new HashMap<>();
         while (result.next()) {
             Book book = new Book(result);
