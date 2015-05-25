@@ -41,8 +41,12 @@ public class LoginPage implements ServerPage {
         String password = req.getParameter("password");
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(password.getBytes("UTF-8"));
-            ResultSet result = Server.getConnection().executeQuery("user-login", false, query, user, hash);
+            byte[] digested = digest.digest(password.getBytes("UTF-8"));
+            StringBuilder hashBuilder = new StringBuilder();
+            for(int i=0;i<digested.length;i++){
+                hashBuilder.append(Integer.toHexString(0xff & digested[i]));
+            }
+            ResultSet result = Server.getConnection().executeQuery("user-login", false, query, user, hashBuilder.toString());
             if (result.next()) {
                 HttpSession s = req.getSession();
                 s.setAttribute(Sessions.IS_LOGGED_IN, true);

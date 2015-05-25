@@ -73,8 +73,12 @@ public class RegisterPage implements ServerPage {
         MessageDigest digest = null;
         try {
             digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(password.getBytes("UTF-8"));
-            Server.getConnection().executeQuery("register", false, REGISTER_QUERY, user, hash, lastName, firstName, phone);
+            byte[] digested = digest.digest(password.getBytes("UTF-8"));
+            StringBuilder hashBuilder = new StringBuilder();
+            for(int i=0;i<digested.length;i++){
+                hashBuilder.append(Integer.toHexString(0xff & digested[i]));
+            }
+            Server.getConnection().executeQuery("register", false, REGISTER_QUERY, user, hashBuilder.toString(), lastName, firstName, phone);
 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
