@@ -19,7 +19,7 @@ public class RegisterPage implements ServerPage {
     private static String REGISTER_QUERY =  "INSERT INTO `" + Schema.USERS_TABLE + "` (` "
             + Schema.USER_EMAIL + "`, `" + Schema.USER_PASSWORD_HASH + "`, `"
             + Schema.USER_LAST_NAME + "`, `" + Schema.USER_FIRST_NAME + "`, `"
-            + Schema.USER_PHONE + "` VALUES (?,?,?,?,?)";
+            + Schema.USER_PHONE + "`) VALUES (?,?,?,?,?)";
     private static String LOOKUP_QUERY = "SELECT * FROM `" + Schema.USERS_TABLE + "` WHERE " +
             "`" + Schema.USER_EMAIL + "`=?";
     public static String PAGE_KEY = "register";
