@@ -38,14 +38,14 @@ public class SQLLibrary implements Library {
     private static final String CREATE_NEW_BOOK = "INSERT INTO `" + Schema.BOOKS_TABLE + "` (" + Schema.BOOK_ISBN + ","
             + Schema.BOOK_TITLE + "," + Schema.BOOK_AUTHOR_LAST + "," + Schema.BOOK_AUTHOR_FIRST + ","
             + Schema.BOOK_ASSIGNING_PROFESSORS + "," + Schema.BOOK_SUBJECT + "," + Schema.BOOK_COURSE_NUMBER
-            + ") VALUES (" + "?,?,?,?,?,?,?,?,?,?)";
+            + ") VALUES (" + "?,?,?,?,?,?,?)";
 
     private static final String CREATE_NEW_RECORD = "INSERT INTO `" + Schema.RECORDS_TABLE + "` ("
             + Schema.RECORD_BARCODE + "," + Schema.RECORD_ISBN + "," + Schema.RECORD_LOANED + ","
             + Schema.RECORD_LOANER_UID + "," + Schema.RECORD_LOAN_END + ") VALUES (?,?,?,?,?)";
 
     @Override
-    public Book createNew(long isbn, String title, String last, String first, String profs, String subj, int num) {
+    public Book createNewBook(long isbn, String title, String last, String first, String profs, String subj, int num) {
         conn.executeQuery("create_new_book", false, CREATE_NEW_BOOK, isbn, title, last, first, profs, subj, num == 0 ? null : num);
         return getBook(isbn);
     }

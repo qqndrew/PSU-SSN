@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Map;
 
 
@@ -48,6 +49,12 @@ public final class Server extends HttpServlet implements Sessions {
     @Override
     public void init() throws ServletException {
         instance = this;
+        try {
+            System.setErr(new PrintStream(new File("err.log")));
+            System.setOut(new PrintStream(new File("runtime.log")));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         File configFile = new File(CONFIGURATION_FILE_NAME);
         if (!configFile.exists()) {
             throw new ServletException("Could not load configuration! Please ensure configuration.yml is present!.");
@@ -112,6 +119,7 @@ public final class Server extends HttpServlet implements Sessions {
         page.processRequest(req);
         // Set meta attributes
         page.setMetaAttributes(req);
+
         // Redirect to page
         req.getRequestDispatcher("/WEB-INF/index.jsp?app=" + pageKey).forward(req, resp);
     }

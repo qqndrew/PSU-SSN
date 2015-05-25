@@ -26,7 +26,7 @@ public class LoginPage implements ServerPage {
 
     @Override
     public void processRequest(HttpServletRequest req) {
-
+        req.setAttribute("message", "");
     }
 
     @Override
@@ -53,6 +53,7 @@ public class LoginPage implements ServerPage {
                 s.setAttribute(Sessions.PHONE, result.getString(Schema.USER_PHONE));
                 s.setAttribute(Sessions.ADMIN, result.getBoolean(Schema.USER_IS_ADMIN));
                 req.setAttribute("app", "idx");
+                s.setAttribute("message", "");
                 req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
             } else {
                 req.setAttribute("message", "Information Incorrect, please try again");

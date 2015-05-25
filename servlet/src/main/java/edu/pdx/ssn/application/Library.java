@@ -14,7 +14,7 @@ public interface Library {
 
     Book getBook(long barcode);
 
-    Book createNew(long isbn, String title, String last, String first, String profs, String subj, int num);
+    Book createNewBook(long isbn, String title, String last, String first, String profs, String subj, int num);
 
     Collection<Record> getRecords(long isbn);
 

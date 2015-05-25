@@ -32,7 +32,7 @@ public class AdminCreateNew implements ServerPage {
             profs = profs.replaceAll(",", "::");
             String subj = req.getParameter("subj");
             int num = Integer.valueOf(req.getParameter("num").equals("") ? "0" : req.getParameter("num"));
-            req.setAttribute("book", Server.getLibrary().createNew(isbn, title, last, first, profs, subj, num));
+            req.setAttribute("book", Server.getLibrary().createNewBook(isbn, title, last, first, profs, subj, num));
             req.setAttribute("confirm", true);
             try {
                 req.setAttribute("app", "admin");

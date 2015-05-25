@@ -22,12 +22,13 @@ public class RegisterPage implements ServerPage {
 
     @Override
     public void processRequest(HttpServletRequest req) {
-
+        req.setAttribute("errmessage", "");
     }
 
     @Override
     public void setMetaAttributes(HttpServletRequest req) {
-
+        req.setAttribute("title", "Register New Account");
+        req.setAttribute("app", PAGE_KEY);
     }
 
     @Override
@@ -66,6 +67,12 @@ public class RegisterPage implements ServerPage {
             }
         }
         Server.getConnection().executeQuery("register", false, REGISTER_QUERY, user, password, lastName, firstName, phone);
-
+        try {
+            req.getRequestDispatcher("/WEB-INF/index.jsp?app=idx").forward(req, resp);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

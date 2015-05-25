@@ -1,4 +1,4 @@
-<%@ c:taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="errmessage" scope="request" type="java.lang.String"/>
 <c:if test="${not empty errmessage}">
   <p>${errmessage}</p>
