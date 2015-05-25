@@ -79,7 +79,7 @@ public final class Server extends HttpServlet implements Sessions {
     private void setupTables() {
         String createUsers = "CREATE TABLE IF NOT EXISTS `" + Schema.USERS_TABLE + "` (`" + Schema.USER_UID + "` INT, `"
                 + Schema.USER_EMAIL + "` VARCHAR(255), `" + Schema.USER_LAST_NAME + "` VARCHAR(255), `"
-                + Schema.USER_FIRST_NAME + "` VARCHAR(255), `" + Schema.USER_PASSWORD_HASH + "` VARBINARY(256), `"
+                + Schema.USER_FIRST_NAME + "` VARCHAR(255), `" + Schema.USER_PASSWORD_HASH + "` VARCHAR(255), `"
                 + Schema.USER_IS_ADMIN + "` INT, `" + Schema.USER_PHONE + "` VARCHAR(255))";
         String createBooks = "CREATE TABLE IF NOT EXISTS `" + Schema.BOOKS_TABLE + "` (`"
                 + Schema.BOOK_ISBN + "` BIGINT, `" + Schema.BOOK_TITLE + "` VARCHAR(255), `"
