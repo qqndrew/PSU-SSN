@@ -40,4 +40,8 @@ public class BookRegistry {
         }
         return instance.registry.get(isbn);
     }
+
+    public static void addBook(Book book) {
+        instance.registry.put(book.getISBN(), book);
+    }
 }

@@ -13,5 +13,5 @@
   <p>Last Name: <input type="text" name="last" size="10" value="" maxLength="255" title="Last Name"></p>
   <p>Phone Number: <input type="text" name="phone" size="10" value="" maxLength="12" title="Phone Number"></p>
 
-  <input type="submit" value="Login">
+  <input type="submit" value="Register">
 </form>

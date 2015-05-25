@@ -14,7 +14,8 @@ public class AdminCreateNew implements ServerPage {
 
     @Override
     public void processRequest(HttpServletRequest req) {
-
+        req.setAttribute("err", "");
+        req.setAttribute("confirm", false);
     }
 
     @Override
@@ -25,7 +26,7 @@ public class AdminCreateNew implements ServerPage {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) {
         if (req.getAttribute("confirm") == null) {
-            long isbn = Long.valueOf(req.getParameter("isbn"));
+            long isbn = Long.valueOf(req.getParameter("isbn").replaceAll("[^0-9]", ""));
             String title = req.getParameter("title");
             String last = req.getParameter("last");
             String first = req.getParameter("first");
@@ -33,10 +34,17 @@ public class AdminCreateNew implements ServerPage {
             profs = profs.replaceAll(",", "::");
             String subj = req.getParameter("subj");
             int num = Integer.valueOf(req.getParameter("num").equals("") ? "0" : req.getParameter("num"));
-            req.setAttribute("book", Server.getLibrary().createNewBook(isbn, title, last, first, profs, subj, num));
-            req.setAttribute("confirm", true);
+            if (Server.getLibrary().getBook(isbn) != null) {
+                req.setAttribute("err", "This book is already registered!");
+                req.setAttribute("confirm", false);
+            } else {
+                req.setAttribute("book", Server.getLibrary().createNewBook(isbn, title, last, first, profs, subj, num));
+                req.setAttribute("confirm", true);
+                req.setAttribute("err", "");
+            }
             try {
                 PageManager.getPage("admin").setMetaAttributes(req);
+                req.setAttribute("admpage", "create_new");
                 req.getRequestDispatcher("/WEB-INF/index.jsp?app=admin&page=create_new").forward(req, resp);
             } catch (ServletException e) {
                 e.printStackTrace();

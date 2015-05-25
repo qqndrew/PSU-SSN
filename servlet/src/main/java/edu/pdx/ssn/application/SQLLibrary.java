@@ -47,6 +47,14 @@ public class SQLLibrary implements Library {
     @Override
     public Book createNewBook(long isbn, String title, String last, String first, String profs, String subj, int num) {
         conn.executeQuery("create_new_book", false, CREATE_NEW_BOOK, isbn, title, last, first, profs, subj, num == 0 ? null : num);
+        ResultSet result = conn.executeQuery("catalog_retrieval", true, CATALOG_RETRIEVAL_QUERY, isbn, null, null, null, null, null);
+        try {
+            result.next();
+            Book book = new Book(result);
+            BookRegistry.addBook(book);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return getBook(isbn);
     }
 

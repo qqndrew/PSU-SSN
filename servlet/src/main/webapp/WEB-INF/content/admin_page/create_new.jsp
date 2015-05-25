@@ -1,7 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:choose>
-    <c:when test="${requestScope.containsKey(\"confirm\")}">
+    <%--@elvariable id="confirm" type="java.lang.Boolean"--%>
+    <c:when test="${confirm}">
         <jsp:useBean id="book" scope="request" type="edu.pdx.ssn.application.Book"/>
         <p>Book successfully created:</p>
         <p>Title: ${book.title}</p>
@@ -17,6 +18,9 @@
         <a href="${pageContext.request.contextPath}/?app=admin">Back</a>
     </c:when>
     <c:otherwise>
+        <c:if test="${not empty err}">
+            <p>${err}</p>
+        </c:if>
         <form action="${pageContext.request.contextPath}/?app=admin&page=create_new" method="post">
             Barcode: <input type="text" name="code" size=13 value=""  maxlength=20> <br/> <br/>
             ISBN: <input type="text" name="isbn" size=13 value=""  maxlength=20> <br/><br/>
