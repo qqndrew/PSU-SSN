@@ -1,6 +1,7 @@
 package edu.pdx.ssn.pages.types;
 
 import edu.pdx.ssn.Server;
+import edu.pdx.ssn.pages.PageManager;
 import edu.pdx.ssn.pages.ServerPage;
 import edu.pdx.ssn.sql.Schema;
 
@@ -8,6 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 public class RegisterPage implements ServerPage {
@@ -54,7 +58,7 @@ public class RegisterPage implements ServerPage {
             try {
                 if (Server.getConnection().executeQuery("lookupemail", false, LOOKUP_QUERY, user).next()) {
                     req.setAttribute("errmessage", "A registration already exists for this email address!");
-                    req.setAttribute("app", "register");
+                    PageManager.getPage("register").setMetaAttributes(req);
                     req.getRequestDispatcher("/WEB-INF/index.jsp?app=register").forward(req, resp);
                     return;
                 }
@@ -66,8 +70,19 @@ public class RegisterPage implements ServerPage {
                 e.printStackTrace();
             }
         }
-        Server.getConnection().executeQuery("register", false, REGISTER_QUERY, user, password, lastName, firstName, phone);
+        MessageDigest digest = null;
         try {
+            digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes("UTF-8"));
+            Server.getConnection().executeQuery("register", false, REGISTER_QUERY, user, hash, lastName, firstName, phone);
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        try {
+            PageManager.getPage("idx").setMetaAttributes(req);
             req.getRequestDispatcher("/WEB-INF/index.jsp?app=idx").forward(req, resp);
         } catch (ServletException e) {
             e.printStackTrace();

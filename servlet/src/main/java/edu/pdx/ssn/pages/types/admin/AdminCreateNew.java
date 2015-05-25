@@ -1,6 +1,7 @@
 package edu.pdx.ssn.pages.types.admin;
 
 import edu.pdx.ssn.Server;
+import edu.pdx.ssn.pages.PageManager;
 import edu.pdx.ssn.pages.ServerPage;
 
 import javax.servlet.ServletException;
@@ -35,9 +36,8 @@ public class AdminCreateNew implements ServerPage {
             req.setAttribute("book", Server.getLibrary().createNewBook(isbn, title, last, first, profs, subj, num));
             req.setAttribute("confirm", true);
             try {
-                req.setAttribute("app", "admin");
-                req.setAttribute("admpage", "create_new");
-                req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
+                PageManager.getPage("admin").setMetaAttributes(req);
+                req.getRequestDispatcher("/WEB-INF/index.jsp?app=admin&page=create_new").forward(req, resp);
             } catch (ServletException e) {
                 e.printStackTrace();
             } catch (IOException e) {
