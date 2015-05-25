@@ -87,10 +87,10 @@ public final class Server extends HttpServlet implements Sessions {
                 + Schema.BOOK_SUBJECT + "` VARCHAR(255), `" + Schema.BOOK_COURSE_NUMBER + "` INT, `"
                 + Schema.BOOK_ASSIGNING_PROFESSORS + "` VARCHAR(255))";
         String createRecords = "CREATE TABLE IF NOT EXISTS `" + Schema.RECORDS_TABLE + "` (`"
-                + Schema.RECORD_BARCODE + "` BIGINT, `" + Schema.RECORD_CHECKED_OUT + "` TINYINT, `"
-                + Schema.RECORD_BORROW_UID + "` BIGINT, `" + Schema.RECORD_DUE_DATE + "` BIGINT, `"
-                + Schema.RECORD_LOANED + "` BOOL, `" + Schema.RECORD_LOANER_UID + "` BIGINT, `"
-                + Schema.RECORD_LOAN_END + "` BIGINT)";
+                + Schema.RECORD_BARCODE + "` BIGINT, `" + Schema.RECORD_ISBN + "` BIGINT, `"
+                + Schema.RECORD_CHECKED_OUT + "` TINYINT, `" + Schema.RECORD_BORROW_UID + "` BIGINT, `"
+                + Schema.RECORD_DUE_DATE + "` BIGINT, `" + Schema.RECORD_LOANED + "` BOOL, `"
+                + Schema.RECORD_LOANER_UID + "` BIGINT, `" + Schema.RECORD_LOAN_END + "` BIGINT)";
         conn.executeQueryRaw(createBooks);
         conn.executeQueryRaw(createUsers);
         conn.executeQueryRaw(createRecords);

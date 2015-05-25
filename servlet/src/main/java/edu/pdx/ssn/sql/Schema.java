@@ -15,7 +15,7 @@ public final class Schema {
     /* Catalog/Book List */
 
     // General Information
-    public static final String BOOKS_TABLE = "book_catalog";
+    public static final String BOOKS_TABLE = "book_table";
     public static final String BOOK_ISBN = "isbn";
     public static final String BOOK_TITLE = "title";
     public static final String BOOK_AUTHOR_LAST = "lname";
@@ -28,7 +28,7 @@ public final class Schema {
     /* Records */
 
     // General Information
-    public static final String RECORDS_TABLE = "record_list";
+    public static final String RECORDS_TABLE = "record_table";
     public static final String RECORD_BARCODE = "id";
     public static final String RECORD_ISBN = "isbn";
     // Circulation Information
