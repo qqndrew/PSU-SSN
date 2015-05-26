@@ -6,6 +6,7 @@ import edu.pdx.ssn.sql.Schema;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -108,8 +109,8 @@ public class SQLLibrary implements Library {
     }
 
     @Override
-    public boolean checkout(Long bookUid, long userUid, String dueDate) {
-        conn.executeQuery("records", true, RECORDS_CHECKOUT, userUid, dueDate, bookUid);
+    public boolean checkout(Long bookUid, long userUid, Date dueDate) {
+        conn.executeQuery("records", true, RECORDS_CHECKOUT, userUid, dueDate.getTime(), bookUid);
         ResultSet result = conn.executeQuery("records_retrieve_barcode", true, RECORDS_RETRIEVE_BARCODE, bookUid);
         try {
             if (result.next()) {
