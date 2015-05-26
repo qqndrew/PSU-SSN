@@ -28,6 +28,7 @@
             ISBN: <input type="text" name="isbn" size=13 value=""  maxlength=20> <br/><br/>
             Donor (or Blank): <input type="text" name="donor" size=25 value=""  maxlength=255><br/><br/>
             Donor Return (or Blank): <input type="text" name="return" size=25 value=""  maxlength=255><br/><br/>
+            <input type="submit" value="Submit" >
         </form>
     </c:otherwise>
 
