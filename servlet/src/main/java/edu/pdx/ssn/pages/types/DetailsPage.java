@@ -17,12 +17,13 @@ public class DetailsPage implements ServerPage {
     public static final String PAGE_KEY = "details";
 
     @Override
-    public void processRequest(HttpServletRequest req) {
+    public boolean processRequest(HttpServletRequest req, HttpServletResponse resp) {
         Map<String, String[]> params = req.getParameterMap();
         Long isbn = params.containsKey(Params.ISBN.getKey()) ? Long.valueOf(params.get(Params.ISBN.getKey())[0]) : null;
         Collection<Record> catalog = Server.getLibrary().getRecords(isbn);
         req.setAttribute("books", catalog);
         req.setAttribute("book", BookRegistry.getBook(isbn));
+        return false;
     }
 
     @Override

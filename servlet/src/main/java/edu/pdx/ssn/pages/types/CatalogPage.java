@@ -17,7 +17,7 @@ public class CatalogPage implements ServerPage {
 
 
     @Override
-    public void processRequest(HttpServletRequest req) {
+    public boolean processRequest(HttpServletRequest req, HttpServletResponse resp) {
         Map<String, String[]> params = req.getParameterMap();
         Long isbn = params.containsKey(Params.ISBN.getKey()) ? Long.valueOf(params.get(Params.ISBN.getKey())[0]) : null;
         String title = params.containsKey(Params.TITLE.getKey()) ? params.get(Params.TITLE.getKey())[0].toLowerCase() : null;
@@ -32,6 +32,7 @@ public class CatalogPage implements ServerPage {
         }
         List<Book> coll = Server.getLibrary().getCatalog(isbn, title, last, first, subj, courseno);
         req.setAttribute("books", coll);
+        return false;
     }
 
     @Override

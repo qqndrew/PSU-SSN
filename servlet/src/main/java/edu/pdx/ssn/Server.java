@@ -118,12 +118,14 @@ public final class Server extends HttpServlet implements Sessions {
             pageKey = PageManager.DEFAULT_KEY;
         }
         // Process the request and set appropriate attributes
-        page.processRequest(req);
+        boolean forward = page.processRequest(req, resp);
         // Set meta attributes
         page.setMetaAttributes(req);
 
         // Redirect to page
-        req.getRequestDispatcher("/WEB-INF/index.jsp?app=" + pageKey).forward(req, resp);
+        if (!forward) {
+            req.getRequestDispatcher("/WEB-INF/index.jsp?app=" + pageKey).forward(req, resp);
+        }
     }
 
     @Override

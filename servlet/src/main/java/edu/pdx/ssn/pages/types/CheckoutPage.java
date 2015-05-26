@@ -12,13 +12,14 @@ public class CheckoutPage implements ServerPage {
     public static final String PAGE_KEY = "checkout";
 
     @Override
-    public void processRequest(HttpServletRequest req) {
+    public boolean processRequest(HttpServletRequest req, HttpServletResponse resp) {
         int barcode = Integer.valueOf(req.getParameter("uid"));
         req.setAttribute("record", Server.getLibrary().getRecord(barcode));
         req.setAttribute("book", Server.getLibrary().getRecord(barcode).getBook());
         req.setAttribute("library", Server.getLibrary());
         req.setAttribute("due_date", new Date(System.currentTimeMillis() + 6652800000L));
         req.setAttribute("confirm", req.getParameter("confirm") == null ? false : Boolean.valueOf(req.getParameter("confirm")));
+        return false;
     }
 
     @Override

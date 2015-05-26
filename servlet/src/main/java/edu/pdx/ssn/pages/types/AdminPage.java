@@ -24,16 +24,17 @@ public class AdminPage implements ServerPage {
     }
 
     @Override
-    public void processRequest(HttpServletRequest req) {
+    public boolean processRequest(HttpServletRequest req, HttpServletResponse resp) {
         String page = req.getParameterMap().containsKey("page") ? req.getParameter("page").toLowerCase() : "idx";
         if (!pages.containsKey(page)) {
             page = "idx";
         }
         ServerPage action = pages.get(page);
         if (action != null) {
-            action.processRequest(req);
+            action.processRequest(req, resp);
         }
         req.setAttribute("admpage", page);
+        return false;
     }
 
     @Override

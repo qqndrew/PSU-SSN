@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface ServerPage {
 
-    void processRequest(HttpServletRequest req);
+    boolean processRequest(HttpServletRequest req, HttpServletResponse resp);
 
     void setMetaAttributes(HttpServletRequest req);
 

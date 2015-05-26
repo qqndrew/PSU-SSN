@@ -13,9 +13,10 @@ public class AdminCreateNew implements ServerPage {
 
 
     @Override
-    public void processRequest(HttpServletRequest req) {
+    public boolean processRequest(HttpServletRequest req, HttpServletResponse resp) {
         req.setAttribute("err", "");
         req.setAttribute("confirm", false);
+        return false;
     }
 
     @Override

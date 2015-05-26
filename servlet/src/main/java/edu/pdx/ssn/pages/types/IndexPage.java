@@ -10,8 +10,8 @@ public class IndexPage implements ServerPage {
     public static final String PAGE_KEY = "idx";
 
     @Override
-    public void processRequest(HttpServletRequest req) {
-        return;
+    public boolean processRequest(HttpServletRequest req, HttpServletResponse resp) {
+        return false;
     }
 
 

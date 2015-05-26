@@ -25,8 +25,9 @@ public class LoginPage implements ServerPage {
 
 
     @Override
-    public void processRequest(HttpServletRequest req) {
+    public boolean processRequest(HttpServletRequest req, HttpServletResponse resp) {
         req.setAttribute("message", "");
+        return false;
     }
 
     @Override

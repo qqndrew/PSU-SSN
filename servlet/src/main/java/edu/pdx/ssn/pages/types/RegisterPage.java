@@ -25,8 +25,9 @@ public class RegisterPage implements ServerPage {
     public static String PAGE_KEY = "register";
 
     @Override
-    public void processRequest(HttpServletRequest req) {
+    public boolean processRequest(HttpServletRequest req, HttpServletResponse resp) {
         req.setAttribute("errmessage", "");
+        return false;
     }
 
     @Override

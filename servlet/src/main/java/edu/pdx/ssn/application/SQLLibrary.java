@@ -23,6 +23,9 @@ public class SQLLibrary implements Library {
             + Schema.RECORD_CHECKED_OUT + "`=1, `" + Schema.RECORD_BORROW_UID + "`=?, `" + Schema.RECORD_DUE_DATE
             + "`=? WHERE ((`" + Schema.RECORD_CHECKED_OUT + "`=0) AND (`" + Schema.RECORD_BARCODE + "`=?))";
 
+    private static final String RECORDS_CHECKIN = "UPDATE `" + Schema.RECORDS_TABLE + "` SET `"
+            + Schema.RECORD_CHECKED_OUT + "`=0 WHERE (`" + Schema.RECORD_BARCODE + "`=?)";
+
     private static final String CATALOG_RETRIEVAL_QUERY = "Select * FROM `" + Schema.BOOKS_TABLE + "` WHERE ((`"
             + Schema.BOOK_ISBN + "` LIKE ?) AND (`" + Schema.BOOK_TITLE + "` LIKE ?) AND (`" + Schema.BOOK_AUTHOR_LAST
             + "` LIKE ?) AND (`" + Schema.BOOK_AUTHOR_FIRST + "` LIKE ?) AND (`" + Schema.BOOK_SUBJECT
@@ -76,6 +79,11 @@ public class SQLLibrary implements Library {
     public Record createRecord(long barcode, long isbn, Long donorUid, Long retDate) {
         conn.executeQuery("record_create", false, CREATE_NEW_RECORD, barcode, isbn, donorUid != null ? 1 : 0, donorUid, retDate);
         return getRecord(barcode);
+    }
+
+    @Override
+    public void checkin(long barcode) {
+        conn.executeQuery("record_checkin", false, RECORDS_CHECKIN, barcode);
     }
 
     @Override

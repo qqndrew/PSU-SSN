@@ -13,7 +13,7 @@ public class LogoutPage implements ServerPage, Sessions {
 
 
     @Override
-    public void processRequest(HttpServletRequest req) {
+    public boolean processRequest(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession(false);
         if (session != null) {
             // Reset defaults
@@ -26,6 +26,7 @@ public class LogoutPage implements ServerPage, Sessions {
             session.removeAttribute(EMAIL);
             session.removeAttribute(PHONE);
         }
+        return false;
     }
 
     @Override
