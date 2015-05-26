@@ -24,19 +24,18 @@
     </c:choose>
   </c:when>
   <c:otherwise>
-    <c:set var="book" value="${record.book}"/>
-    <p>Title: ${book.title}</p>
-    <p>ISBN: ${book.ISBN}</p>
-    <p>Author: ${book.authorLast}, ${book.authorFirst}</p>
-    <p>Associated Course: ${book.subject} ${book.number}</p>
+    <p>Title: ${record.book.title}</p>
+    <p>ISBN: ${record.book.ISBN}</p>
+    <p>Author: ${record.book.authorLast}, ${record.book.authorFirst}</p>
+    <p>Associated Course: ${record.book.subject} ${record.book.number}</p>
     <p>Associated Professors:
     <ul>
-      <c:forEach var="professor" items="${book.professors}">
+      <c:forEach var="professor" items="${record.book.professors}">
         <li>${professor}</li>
       </c:forEach>
     </ul>
     </p>
     <p>Due Date: <fmt:formatDate value="${due_date}" pattern="MM-dd-yy"/></p>
-    <p><a href = "${pageContext.request.contextPath}/?app=checkout&confirm=true&uid=${book.barcode}">Confirm</a></p>
+    <p><a href = "${pageContext.request.contextPath}/?app=checkout&confirm=true&uid=${record.barcode}">Confirm</a></p>
   </c:otherwise>
 </c:choose>
