@@ -2,7 +2,6 @@ package edu.pdx.ssn.application;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 public interface Library {
 
@@ -10,7 +9,7 @@ public interface Library {
 
     List<Book> getCatalog(Long isbn, String title, String last, String first, String subj, Integer courseno);
 
-    boolean checkout(Long bookUid, UUID userUid, String dueDate);
+    boolean checkout(Long bookUid, long userUid, String dueDate);
 
     Book getBook(long barcode);
 

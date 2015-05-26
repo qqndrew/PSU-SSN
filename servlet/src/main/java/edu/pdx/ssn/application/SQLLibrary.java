@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
 
 public class SQLLibrary implements Library {
 
@@ -108,17 +107,13 @@ public class SQLLibrary implements Library {
     }
 
     @Override
-    public boolean checkout(Long bookUid, UUID userUid, String dueDate) {
+    public boolean checkout(Long bookUid, long userUid, String dueDate) {
         conn.executeQuery("records", true, RECORDS_CHECKOUT, userUid, dueDate, bookUid);
         ResultSet result = conn.executeQuery("records_retrieve_isbn", true, RECORDS_RETRIEVE_ISBN, bookUid);
         try {
             if (result.next()) {
                 String res = result.getString(Schema.RECORD_BORROW_UID);
-                if (res == null) {
-                    return false;
-                } else {
-                    return UUID.fromString(res).equals(userUid);
-                }
+                return res != null && Long.valueOf(res).equals(userUid);
             }
         } catch (SQLException e) {
             e.printStackTrace();
