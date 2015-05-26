@@ -40,7 +40,8 @@ public class SQLLibrary implements Library {
 
     private static final String CREATE_NEW_RECORD = "INSERT INTO `" + Schema.RECORDS_TABLE + "` ("
             + Schema.RECORD_BARCODE + "," + Schema.RECORD_ISBN + "," + Schema.RECORD_LOANED + ","
-            + Schema.RECORD_LOANER_UID + "," + Schema.RECORD_LOAN_END + ") VALUES (?,?,?,?,?)";
+            + Schema.RECORD_LOANER_UID + "," + Schema.RECORD_LOAN_END + ","
+            + Schema.RECORD_CHECKED_OUT + ") VALUES (?,?,?,?,?, false)";
 
     @Override
     public Book createNewBook(long isbn, String title, String last, String first, String profs, String subj, int num) {
@@ -109,7 +110,7 @@ public class SQLLibrary implements Library {
     @Override
     public boolean checkout(Long bookUid, long userUid, String dueDate) {
         conn.executeQuery("records", true, RECORDS_CHECKOUT, userUid, dueDate, bookUid);
-        ResultSet result = conn.executeQuery("records_retrieve_isbn", true, RECORDS_RETRIEVE_ISBN, bookUid);
+        ResultSet result = conn.executeQuery("records_retrieve_barcode", true, RECORDS_RETRIEVE_BARCODE, bookUid);
         try {
             if (result.next()) {
                 String res = result.getString(Schema.RECORD_BORROW_UID);

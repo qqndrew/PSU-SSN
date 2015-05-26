@@ -3,7 +3,7 @@ package edu.pdx.ssn.sql;
 public final class Schema {
 
     /* Users Table */
-    public static final String USERS_TABLE = "user_table";
+    public static final String USERS_TABLE = "user_list";
     public static final String USER_UID = "id";
     public static final String USER_EMAIL = "email";
     public static final String USER_LAST_NAME = "lname";
@@ -15,7 +15,7 @@ public final class Schema {
     /* Catalog/Book List */
 
     // General Information
-    public static final String BOOKS_TABLE = "book_catalog";
+    public static final String BOOKS_TABLE = "book_list";
     public static final String BOOK_ISBN = "isbn";
     public static final String BOOK_TITLE = "title";
     public static final String BOOK_AUTHOR_LAST = "lname";
@@ -28,7 +28,7 @@ public final class Schema {
     /* Records */
 
     // General Information
-    public static final String RECORDS_TABLE = "record_table";
+    public static final String RECORDS_TABLE = "record_catalog";
     public static final String RECORD_BARCODE = "id";
     public static final String RECORD_ISBN = "isbn";
     // Circulation Information
