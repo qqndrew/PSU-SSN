@@ -19,8 +19,8 @@ public class SQLLibrary implements Library {
     }
 
     private static final String RECORDS_CHECKOUT = "UPDATE `" + Schema.RECORDS_TABLE + "` SET `"
-            + Schema.RECORD_CHECKED_OUT + "`=true, `" + Schema.RECORD_BORROW_UID + "`=?, `" + Schema.RECORD_DUE_DATE
-            + "`=? WHERE ((`" + Schema.RECORD_CHECKED_OUT + "`=false) AND (`" + Schema.RECORD_BARCODE + "`=?))";
+            + Schema.RECORD_CHECKED_OUT + "`=1, `" + Schema.RECORD_BORROW_UID + "`=?, `" + Schema.RECORD_DUE_DATE
+            + "`=? WHERE ((`" + Schema.RECORD_CHECKED_OUT + "`=0) AND (`" + Schema.RECORD_BARCODE + "`=?))";
 
     private static final String CATALOG_RETRIEVAL_QUERY = "Select * FROM `" + Schema.BOOKS_TABLE + "` WHERE ((`"
             + Schema.BOOK_ISBN + "` LIKE ?) AND (`" + Schema.BOOK_TITLE + "` LIKE ?) AND (`" + Schema.BOOK_AUTHOR_LAST
@@ -41,7 +41,7 @@ public class SQLLibrary implements Library {
     private static final String CREATE_NEW_RECORD = "INSERT INTO `" + Schema.RECORDS_TABLE + "` ("
             + Schema.RECORD_BARCODE + "," + Schema.RECORD_ISBN + "," + Schema.RECORD_LOANED + ","
             + Schema.RECORD_LOANER_UID + "," + Schema.RECORD_LOAN_END + ","
-            + Schema.RECORD_CHECKED_OUT + ") VALUES (?,?,?,?,?, false)";
+            + Schema.RECORD_CHECKED_OUT + ") VALUES (?,?,?,?,?, 0)";
 
     @Override
     public Book createNewBook(long isbn, String title, String last, String first, String profs, String subj, int num) {
@@ -113,8 +113,7 @@ public class SQLLibrary implements Library {
         ResultSet result = conn.executeQuery("records_retrieve_barcode", true, RECORDS_RETRIEVE_BARCODE, bookUid);
         try {
             if (result.next()) {
-                String res = result.getString(Schema.RECORD_BORROW_UID);
-                return res != null && Long.valueOf(res).equals(userUid);
+                return result.getLong(Schema.RECORD_BORROW_UID) == userUid;
             }
         } catch (SQLException e) {
             e.printStackTrace();
