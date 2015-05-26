@@ -2,6 +2,7 @@ package edu.pdx.ssn.pages.types.admin;
 
 import edu.pdx.ssn.Server;
 import edu.pdx.ssn.application.Record;
+import edu.pdx.ssn.pages.PageManager;
 import edu.pdx.ssn.pages.ServerPage;
 
 import javax.servlet.ServletException;
@@ -66,6 +67,8 @@ public class AdminNewRecordPage implements ServerPage {
 
     private void forwardRequest(HttpServletRequest req, HttpServletResponse resp) {
         try {
+            PageManager.getPage("admin").setMetaAttributes(req);
+            req.setAttribute("admpage", "new_record");
             req.getRequestDispatcher("/WEB-INF/index.jsp?app=admin&page=new_record").forward(req, resp);
         } catch (ServletException e) {
             e.printStackTrace();
