@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AdminCheckin implements ServerPage {
+
+    public static String PAGE_KEY = "checkin";
+
     @Override
     public boolean processRequest(HttpServletRequest req, HttpServletResponse resp) {
         req.setAttribute("err", "");
