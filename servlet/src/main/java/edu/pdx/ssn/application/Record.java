@@ -24,6 +24,7 @@ public class Record {
     public Record(ResultSet result) {
         try {
             barcode = result.getLong(Schema.RECORD_BARCODE);
+            isbn = result.getLong(Schema.RECORD_ISBN);
             checked_out = result.getBoolean(Schema.RECORD_CHECKED_OUT);
             checkoutUid = result.getLong(Schema.RECORD_BORROW_UID);
             long temp = result.getLong(Schema.RECORD_DUE_DATE);

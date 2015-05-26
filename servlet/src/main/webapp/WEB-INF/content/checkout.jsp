@@ -24,13 +24,14 @@
     </c:choose>
   </c:when>
   <c:otherwise>
-    <p>Title: ${record.book.title}</p>
-    <p>ISBN: ${record.book.ISBN}</p>
-    <p>Author: ${record.book.authorLast}, ${record.book.authorFirst}</p>
-    <p>Associated Course: ${record.book.subject} ${record.book.number}</p>
+    <jsp:useBean id="book" scope="request" type="edu.pdx.ssn.application.Book"/>
+    <p>Title: ${book.title}</p>
+    <p>ISBN: ${book.ISBN}</p>
+    <p>Author: ${book.authorLast}, ${book.authorFirst}</p>
+    <p>Associated Course: ${book.subject} ${book.number}</p>
     <p>Associated Professors:
     <ul>
-      <c:forEach var="professor" items="${record.book.professors}">
+      <c:forEach var="professor" items="${book.professors}">
         <li>${professor}</li>
       </c:forEach>
     </ul>

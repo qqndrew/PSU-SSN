@@ -59,6 +59,7 @@ public class AdminNewRecordPage implements ServerPage {
             }
             Record record = Server.getLibrary().createRecord(barcode, isbn, donorUid, retDate);
             req.setAttribute("record", record);
+            req.setAttribute("book", record.getBook());
             req.setAttribute("confirm", true);
             forwardRequest(req, resp);
             return;
