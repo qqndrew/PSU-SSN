@@ -8,7 +8,7 @@
   <c:when test="${confirm}">
     <c:choose>
       <c:when test="${!sessionScope.IS_LOGGED_IN}">
-        <p>Error: You must be logged in!</p>
+        <c:set var="message" scope="request" value="Error: you must be logged in!"/>
         <jsp:include page="login.jsp" />
       </c:when>
       <c:otherwise>
