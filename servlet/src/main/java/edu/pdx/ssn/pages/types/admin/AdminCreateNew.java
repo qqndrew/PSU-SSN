@@ -25,7 +25,7 @@ public class AdminCreateNew implements ServerPage {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) {
-        if (req.getAttribute("confirm") == null || req.getAttribute("confirm") == false) {
+        if (req.getAttribute("confirm") == null || req.getAttribute("confirm").equals(false)) {
             long isbn = Long.valueOf(req.getParameter("isbn").replaceAll("[^0-9]", ""));
             String title = req.getParameter("title");
             String last = req.getParameter("last");

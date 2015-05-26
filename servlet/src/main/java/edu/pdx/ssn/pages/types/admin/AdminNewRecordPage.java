@@ -21,7 +21,7 @@ public class AdminNewRecordPage implements ServerPage {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) {
-        if (req.getAttribute("confirm") == null || req.getAttribute("confirm") == false) {
+        if (req.getAttribute("confirm") == null || req.getAttribute("confirm").equals(false)) {
             long barcode = Long.valueOf(req.getParameter("code").replaceAll("[^0-9]", ""));
             if (Server.getLibrary().getRecord(barcode) != null) {
                 req.setAttribute("err", "A record with this barcode already exists!");
