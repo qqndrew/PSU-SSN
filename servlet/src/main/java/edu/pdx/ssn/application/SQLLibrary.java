@@ -12,7 +12,6 @@ import java.util.UUID;
 
 public class SQLLibrary implements Library {
 
-
     private MySQLConnection conn;
 
     public SQLLibrary(MySQLConnection connection) {
@@ -70,6 +69,12 @@ public class SQLLibrary implements Library {
             e.printStackTrace();
         }
         return ret;
+    }
+
+    @Override
+    public Record createRecord(long barcode, long isbn, Long donorUid, Long retDate) {
+        conn.executeQuery("record_create", false, CREATE_NEW_RECORD, barcode, isbn, donorUid != null ? 1 : 0, donorUid, retDate);
+        return getRecord(barcode);
     }
 
     @Override

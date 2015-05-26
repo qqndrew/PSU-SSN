@@ -2,6 +2,7 @@ package edu.pdx.ssn.pages.types;
 
 import edu.pdx.ssn.pages.ServerPage;
 import edu.pdx.ssn.pages.types.admin.AdminCreateNew;
+import edu.pdx.ssn.pages.types.admin.AdminNewRecordPage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,8 +19,8 @@ public class AdminPage implements ServerPage {
         pages.put("idx", null);
         pages.put("members", null);
         pages.put("books", null);
-
         pages.put("create_new", new AdminCreateNew());
+        pages.put("new_record", new AdminNewRecordPage());
     }
 
     @Override

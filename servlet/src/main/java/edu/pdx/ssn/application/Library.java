@@ -18,4 +18,5 @@ public interface Library {
 
     Collection<Record> getRecords(long isbn);
 
+    Record createRecord(long barcode, long isbn, Long donorUid, Long retDate);
 }
