@@ -1,8 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:choose>
-
-    <jsp:useBean id="confirm" scope="request" type="java.lang.Boolean"/>
+    <%--@elvariable id="confirm" type="java.lang.Boolean"--%>
     <c:when test="${confirm}">
         <jsp:useBean id="record" scope="request" type="edu.pdx.ssn.application.Record"/>
         <p>Record successfully created:</p>
