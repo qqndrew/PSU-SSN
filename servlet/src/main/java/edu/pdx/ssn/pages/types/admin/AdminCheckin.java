@@ -66,6 +66,7 @@ public class AdminCheckin implements ServerPage {
                 return;
             }
             req.setAttribute("record", record);
+            req.setAttribute("forward", "The record " + barcode + " was checked in successfully");
             forwardRequest(req, resp, true);
         }
     }

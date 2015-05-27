@@ -10,8 +10,8 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/header.jsp"/>
+<jsp:include page="/WEB-INF/forwards.jsp"/>
 <jsp:include page="/WEB-INF/content/${param.content}.jsp"/>
-
 <jsp:include page="/WEB-INF/footer.jsp"/>
 </body>
 </html>

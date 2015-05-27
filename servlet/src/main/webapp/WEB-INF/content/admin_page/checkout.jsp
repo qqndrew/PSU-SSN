@@ -29,7 +29,7 @@
       <p>${err}</p>
     </c:if>
     <form action="${requestScope.request.contextPath}/?app=admin&page=checkout&confirm=false&continue=true" method="post">
-      Barcode:<input type="text" name="code" size=10 value=""  maxlength=10><input type="submit" value="Continue">
+      Barcode:<input type="text" name="code" size=10 value=""  maxlength=13><input type="submit" value="Continue">
     </form>
   </c:otherwise>
 </c:choose>

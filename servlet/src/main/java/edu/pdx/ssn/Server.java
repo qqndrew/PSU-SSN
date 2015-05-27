@@ -100,6 +100,9 @@ public final class Server extends HttpServlet implements Sessions {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getAttribute("forward") == null) {
+            req.setAttribute("forward", "");
+        }
         // Construct session
         HttpSession session = req.getSession();
         if (session.isNew()) {
@@ -130,6 +133,9 @@ public final class Server extends HttpServlet implements Sessions {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        if (req.getAttribute("forward") == null) {
+            req.setAttribute("forward", "");
+        }
         // Construct session
         HttpSession session = req.getSession();
         if (session.isNew()) {

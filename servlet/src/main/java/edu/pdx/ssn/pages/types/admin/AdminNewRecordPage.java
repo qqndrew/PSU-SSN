@@ -62,6 +62,7 @@ public class AdminNewRecordPage implements ServerPage {
             req.setAttribute("record", record);
             req.setAttribute("book", record.getBook());
             req.setAttribute("confirm", true);
+            req.setAttribute("forward", "Record successfully created!");
             forwardRequest(req, resp);
             return;
         }

@@ -42,6 +42,7 @@ public class AdminCreateNew implements ServerPage {
                 req.setAttribute("book", Server.getLibrary().createNewBook(isbn, title, last, first, profs, subj, num));
                 req.setAttribute("confirm", true);
                 req.setAttribute("err", "");
+                req.setAttribute("forward", "Book successfully created!");
             }
             try {
                 PageManager.getPage("admin").setMetaAttributes(req);
