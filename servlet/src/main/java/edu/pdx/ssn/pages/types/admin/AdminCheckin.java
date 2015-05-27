@@ -23,6 +23,7 @@ public class AdminCheckin implements ServerPage {
                 Server.getLibrary().checkin(barcode);
                 PageManager.getPage("admin").setMetaAttributes(req);
                 req.setAttribute("admpage", "books");
+                req.setAttribute("forward", "The record " + barcode + " was checked in successfully");
                 try {
                     req.getRequestDispatcher("/WEB-INF/index.jsp?app=admin&page=books").forward(req, resp);
                 } catch (ServletException e) {
@@ -66,7 +67,6 @@ public class AdminCheckin implements ServerPage {
                 return;
             }
             req.setAttribute("record", record);
-            req.setAttribute("forward", "The record " + barcode + " was checked in successfully");
             forwardRequest(req, resp, true);
         }
     }
