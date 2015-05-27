@@ -15,9 +15,6 @@ public class AdminEditBook implements ServerPage {
     @Override
     public boolean processRequest(HttpServletRequest req, HttpServletResponse resp) {
         req.setAttribute("err", "");
-        if (req.getAttribute("confirm") == null) {
-            req.setAttribute("confirm", false);
-        }
         return false;
     }
 

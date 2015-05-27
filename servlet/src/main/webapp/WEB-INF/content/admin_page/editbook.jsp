@@ -2,7 +2,7 @@
 <c:choose>
   <c:when test="${param.confirm}">
     <jsp:useBean id="book" scope="request" type="edu.pdx.ssn.application.Book"/>
-    <form action="${requestScope.request.contextPath}/?app=admin&page=edit_details&confirm=true&isbn=${book.ISBN}" method="post">
+    <form action="${requestScope.request.contextPath}/?app=admin&page=editbook&confirm=true&isbn=${book.ISBN}" method="post">
       ISBN: ${book.ISBN} <br/>
       Title: <input type="text" name="title" size=25 value="${book.title}"  maxlength=255> <br/>
       Author: Last: <input type="text" name="last" size=25 value="${book.authorLast}"  maxlength=255> First: <input type="text" name="first" size=25 value="${book.authorFirst}"  maxlength=255><br/>
@@ -24,7 +24,7 @@
     </form>
   </c:when>
   <c:otherwise>
-    <form action="${requestScope.request.contextPath}/?app=admin&page=edit_details&confirm=false" method="post">
+    <form action="${requestScope.request.contextPath}/?app=admin&page=editbook&confirm=false" method="post">
       ISBN: <input type="text" name="code" size=10 value=""  maxlength=13><input type="submit" value="Continue">
     </form>
   </c:otherwise>
