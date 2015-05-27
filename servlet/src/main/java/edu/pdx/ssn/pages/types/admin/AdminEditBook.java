@@ -29,7 +29,7 @@ public class AdminEditBook implements ServerPage {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) {
         req.setAttribute("err", "");
-        if (req.getParameter("confirm").equals(true)) {
+        if (Boolean.valueOf(req.getParameter("confirm"))) {
             long isbn = 0;
             try {
                 isbn = Long.valueOf(req.getParameter("isbn").replaceAll("[^0-9]", ""));
