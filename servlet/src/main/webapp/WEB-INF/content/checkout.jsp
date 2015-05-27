@@ -19,8 +19,8 @@
           <c:otherwise>
             <p>Hold Unsuccessful: Most likely someone else placed a hold on the same book before you!</p>
           </c:otherwise>
-          <p><a href="${requestScope.request.contextPath}/?app=catalog">Back to Catalog</a></p>
         </c:choose>
+        <p><a href="${requestScope.request.contextPath}/?app=catalog">Back to Catalog</a></p>
       </c:otherwise>
     </c:choose>
   </c:when>
