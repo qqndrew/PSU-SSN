@@ -3,7 +3,6 @@
     Book Catalog
 </a>
 <br>
-<br>
 <c:choose>
     <c:when test="${sessionScope.IS_LOGGED_IN}">
         <c:choose>
