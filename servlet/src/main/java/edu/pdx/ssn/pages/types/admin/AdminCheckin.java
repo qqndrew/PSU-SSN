@@ -19,7 +19,7 @@ public class AdminCheckin implements ServerPage {
         req.setAttribute("err", "");
         if (Boolean.valueOf(req.getParameter("confirm"))) {
             if (Boolean.valueOf(req.getParameter("continue"))) {
-                long barcode = Long.getLong(req.getParameter("code"));
+                long barcode = Long.valueOf(req.getParameter("code"));
                 Server.getLibrary().checkin(barcode);
                 PageManager.getPage("admin").setMetaAttributes(req);
                 req.setAttribute("admpage", "books");
@@ -53,7 +53,7 @@ public class AdminCheckin implements ServerPage {
         if (!Boolean.valueOf(req.getParameter("confirm"))) {
             long barcode = 0;
             try {
-                barcode = Long.getLong(req.getParameter("code"));
+                barcode = Long.valueOf(req.getParameter("code"));
             } catch (NumberFormatException e) {
                 req.setAttribute("err", "This is not a valid barcode!");
                 forwardRequest(req, resp, false);

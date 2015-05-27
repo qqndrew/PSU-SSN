@@ -32,11 +32,12 @@ public class AdminPage implements ServerPage {
             page = "idx";
         }
         ServerPage action = pages.get(page);
+        boolean ret = false;
         if (action != null) {
-            action.processRequest(req, resp);
+            ret = action.processRequest(req, resp);
         }
         req.setAttribute("admpage", page);
-        return false;
+        return ret;
     }
 
     @Override
