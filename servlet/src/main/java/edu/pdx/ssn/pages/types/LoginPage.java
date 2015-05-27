@@ -56,7 +56,7 @@ public class LoginPage implements ServerPage {
                 s.setAttribute(Sessions.LAST_NAME, result.getString(Schema.USER_LAST_NAME));
                 s.setAttribute(Sessions.EMAIL, result.getString(Schema.USER_EMAIL));
                 s.setAttribute(Sessions.PHONE, result.getString(Schema.USER_PHONE));
-                s.setAttribute(Sessions.ADMIN, result.getBoolean(Schema.USER_IS_ADMIN));
+                s.setAttribute(Sessions.ADMIN, result.getInt(Schema.USER_IS_ADMIN) == 1);
                 req.setAttribute("app", "idx");
                 req.setAttribute("message", "");
                 req.setAttribute("forward", "Successfully logged in!");

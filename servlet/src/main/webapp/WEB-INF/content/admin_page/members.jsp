@@ -1,4 +1,4 @@
-<a href="${pageContext.request.contextPath}/?app=admin&page=add_new">Add New Member</a><br/>
+<a href="${pageContext.request.contextPath}/?app=admin&page=new_member">Add New Member</a><br/>
 <a href="${pageContext.request.contextPath}/?app=admin&page=edit_member">Edit Member</a><br/>
 <a href="${pageContext.request.contextPath}/?app=admin&page=rem_member">Remove Member</a><br/>
 <a href="${pageContext.request.contextPath}/?app=admin&page=overdue_send">Send overdue notifications</a><br/>
