@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
-  <jsp:useBean id="confirm" scope="request" type="java.lang.Boolean"/>
-  <c:when test="${confirm}">
+  <c:when test="${param.confirm}">
     <jsp:useBean id="book" scope="request" type="edu.pdx.ssn.application.Book"/>
     <form action="${requestScope.request.contextPath}/?app=admin&page=edit_details&confirm=true&isbn=${book.ISBN}" method="post">
       ISBN: ${book.ISBN} <br/>
