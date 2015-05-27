@@ -42,6 +42,11 @@ public class SQLLibrary implements Library {
             + Schema.BOOK_ASSIGNING_PROFESSORS + "," + Schema.BOOK_SUBJECT + "," + Schema.BOOK_COURSE_NUMBER
             + ") VALUES (" + "?,?,?,?,?,?,?)";
 
+    private static final String UPDATE_BOOK = "UPDATE `" + Schema.BOOKS_TABLE + "` SET `"
+            + Schema.BOOK_TITLE + "`=?,`" + Schema.BOOK_AUTHOR_LAST + "`=?,`" + Schema.BOOK_AUTHOR_FIRST + "`=?,`"
+            + Schema.BOOK_ASSIGNING_PROFESSORS + "`=?,`" + Schema.BOOK_SUBJECT + "`=?,`" + Schema.BOOK_COURSE_NUMBER
+            + "`=? WHERE (`" + Schema.BOOK_ISBN + "`=?)";
+
     private static final String CREATE_NEW_RECORD = "INSERT INTO `" + Schema.RECORDS_TABLE + "` ("
             + Schema.RECORD_BARCODE + "," + Schema.RECORD_ISBN + "," + Schema.RECORD_LOANED + ","
             + Schema.RECORD_LOANER_UID + "," + Schema.RECORD_LOAN_END + ","
@@ -50,14 +55,7 @@ public class SQLLibrary implements Library {
     @Override
     public Book createNewBook(long isbn, String title, String last, String first, String profs, String subj, int num) {
         conn.executeQuery("create_new_book", false, CREATE_NEW_BOOK, isbn, title, last, first, profs, subj, num == 0 ? null : num);
-        ResultSet result = conn.executeQuery("catalog_retrieval", true, CATALOG_RETRIEVAL_QUERY, isbn, null, null, null, null, null);
-        try {
-            result.next();
-            Book book = new Book(result);
-            BookRegistry.addBook(book);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        BookRegistry.updateBook(isbn);
         return getBook(isbn);
     }
 
@@ -84,6 +82,13 @@ public class SQLLibrary implements Library {
     @Override
     public void checkin(long barcode) {
         conn.executeQuery("record_checkin", false, RECORDS_CHECKIN, barcode);
+    }
+
+    @Override
+    public Book updateBook(long isbn, String title, String last, String first, String profs, String subj, int num) {
+        conn.executeQuery("update_book", false, UPDATE_BOOK, title, last, first, profs, subj, num, isbn);
+        BookRegistry.updateBook(isbn);
+        return getBook(isbn);
     }
 
     @Override

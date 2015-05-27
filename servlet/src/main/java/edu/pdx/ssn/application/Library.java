@@ -21,4 +21,6 @@ public interface Library {
     Record createRecord(long barcode, long isbn, Long donorUid, Long retDate);
 
     void checkin(long barcode);
+
+    Book updateBook(long isbn, String title, String last, String first, String profs, String subj, int num);
 }

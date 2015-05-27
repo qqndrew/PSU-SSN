@@ -44,4 +44,19 @@ public class BookRegistry {
     public static void addBook(Book book) {
         instance.registry.put(book.getISBN(), book);
     }
+
+    public static void updateBook(long isbn) {
+        if (instance.registry.containsKey(isbn)) {
+            instance.registry.remove(isbn);
+        }
+        ResultSet result = Server.getConnection().executeQuery("registry_init", true, CATALOG_RETRIEVAL_QUERY, isbn, null, null, null, null, null);
+        try {
+            while (result.next()) {
+                Book book = new Book(result);
+                instance.registry.put(book.getISBN(), book);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
