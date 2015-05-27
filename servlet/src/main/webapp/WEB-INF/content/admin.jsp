@@ -8,8 +8,10 @@
     <c:choose>
       <c:when test="${sessionScope.IS_LOGGED_IN}">
         <p>You do not have the required permission level (administration) to access this page</p>
+        <a href="${requestScope.request.contextPath}/?app=idx">Back to Home Page</a>
       </c:when>
       <c:otherwise>
+        <c:set var="message" scope="request" value=""/>
         <jsp:include page="/WEB-INF/content/login.jsp"/>
       </c:otherwise>
     </c:choose>
