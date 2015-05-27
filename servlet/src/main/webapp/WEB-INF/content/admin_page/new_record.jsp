@@ -5,7 +5,6 @@
     <c:when test="${confirm}">
         <jsp:useBean id="record" scope="request" type="edu.pdx.ssn.application.Record"/>
         <jsp:useBean id="book" scope="request" type="edu.pdx.ssn.application.Book"/>
-        <p>Record successfully created:</p>
         <p>Barcode: ${record.barcode}</p>
         <p>Title: ${book.title}</p>
         <p>ISBN: ${book.ISBN}</p>

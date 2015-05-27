@@ -1,7 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<a href = "${pageContext.request.contextPath}/?app=catalog">
-    Book Catalog
-</a>
+<a href = "${pageContext.request.contextPath}/?app=catalog">Book Catalog</a>
 <br>
 <c:choose>
     <c:when test="${sessionScope.IS_LOGGED_IN}">

@@ -4,7 +4,6 @@
     <%--@elvariable id="confirm" type="java.lang.Boolean"--%>
     <c:when test="${confirm}">
         <jsp:useBean id="book" scope="request" type="edu.pdx.ssn.application.Book"/>
-        <p>Book successfully created:</p>
         <p>Title: ${book.title}</p>
         <p>ISBN: ${book.ISBN}</p>
         <p>Author: ${book.authorLast}, ${book.authorFirst}</p>
