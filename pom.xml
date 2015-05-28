@@ -12,7 +12,6 @@
 
     <modules>
         <module>servlet</module>
-        <module>client-android</module>
     </modules>
 
 
