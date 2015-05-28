@@ -53,10 +53,10 @@ public class Member {
         uid = result.getLong(Schema.USER_UID);
         email = result.getString(Schema.USER_EMAIL);
         long temp = result.getLong(Schema.USER_PHONE);
-        if (temp < 10000000000L) {
-            temp += 10000000000L;
-        }
-        phone = new DecimalFormat("+00 (000)000-0000").format(temp);
+        String s = new DecimalFormat("0000000000").format(temp);
+        phone = "(" + s.substring(0, 3) + ") "
+                + s.substring(3, 5) + "-"
+                + s.substring(5, 7);
         fname = result.getString(Schema.USER_FIRST_NAME);
         lname = result.getString(Schema.USER_LAST_NAME);
         recordsBorrowed = Server.getLibrary().getBorrowedRecords(uid);
