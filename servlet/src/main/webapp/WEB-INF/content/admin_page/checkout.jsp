@@ -21,7 +21,7 @@
         </c:choose>
       </tr>
     </table>
-    <a href="${requestScope.request.contextPath}/?app=admin&page=checkout&confirm=false">Back</a> <a href="${requestScope.request.contextPath}/?app=admin&page=checkin&code=${record.barcode}&confirm=true&continue=true">Continue</a>
+    <a href="${requestScope.request.contextPath}/?app=admin&page=checkout&confirm=false">Back</a> <a href="${requestScope.request.contextPath}/?app=admin&page=checkout&code=${record.barcode}&confirm=true&continue=true">Continue</a>
   </c:when>
   <c:otherwise>
     <jsp:useBean id="err" scope="request" type="java.lang.String"/>
