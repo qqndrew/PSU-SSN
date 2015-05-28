@@ -13,7 +13,7 @@
       </c:when>
       <c:otherwise>
         <c:choose>
-          <c:when test="${library.checkout(record.barcode, sessionScope.USER_ID, due_date)}" >
+          <c:when test="${library.hold(record.barcode, sessionScope.USER_ID, due_date)}" >
             <p>Hold Successful: please go to the SSN office to pick up your book. Your hold will expire on <fmt:formatDate value="${due_date}" pattern="MM-dd-yy"/> if the book is not picked up</p>
           </c:when>
           <c:otherwise>

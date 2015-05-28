@@ -122,7 +122,7 @@ public class SQLLibrary implements Library {
     }
 
     @Override
-    public boolean checkout(Long bookUid, long userUid, Date dueDate) {
+    public boolean hold(Long bookUid, long userUid, Date dueDate) {
         conn.executeQuery("records", true, RECORDS_CHECKOUT, userUid, dueDate.getTime(), bookUid);
         ResultSet result = conn.executeQuery("records_retrieve_barcode", true, RECORDS_RETRIEVE_BARCODE, bookUid);
         try {
