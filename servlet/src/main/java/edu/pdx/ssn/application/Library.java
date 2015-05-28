@@ -25,4 +25,8 @@ public interface Library {
     Book updateBook(long isbn, String title, String last, String first, String profs, String subj, int num);
 
     boolean checkout(long barcode, long date);
+
+    List<Record> getBorrowedRecords(long uid);
+
+    List<Record> getLoanedRecords(long uid);
 }

@@ -28,7 +28,7 @@ public class SQLLibrary implements Library {
             + "`=? WHERE ((`" + Schema.RECORD_CHECKED_OUT + "`=1) AND (`" + Schema.RECORD_BARCODE + "`=?))";
 
     private static final String RECORDS_CHECKIN = "UPDATE `" + Schema.RECORDS_TABLE + "` SET `"
-            + Schema.RECORD_CHECKED_OUT + "`=0 WHERE (`" + Schema.RECORD_BARCODE + "`=?)";
+            + Schema.RECORD_CHECKED_OUT + "`=0, `" + Schema.RECORD_LOANER_UID + "`=NULL WHERE (`" + Schema.RECORD_BARCODE + "`=?)";
 
     private static final String CATALOG_RETRIEVAL_QUERY = "Select * FROM `" + Schema.BOOKS_TABLE + "` WHERE ((`"
             + Schema.BOOK_ISBN + "` LIKE ?) AND (`" + Schema.BOOK_TITLE + "` LIKE ?) AND (`" + Schema.BOOK_AUTHOR_LAST
@@ -55,6 +55,9 @@ public class SQLLibrary implements Library {
             + Schema.RECORD_BARCODE + "," + Schema.RECORD_ISBN + "," + Schema.RECORD_LOANED + ","
             + Schema.RECORD_LOANER_UID + "," + Schema.RECORD_LOAN_END + ","
             + Schema.RECORD_CHECKED_OUT + ") VALUES (?,?,?,?,?, 0)";
+
+    private static final String RECORDS_BORROWED = "SELECT * FROM `" + Schema.RECORDS_TABLE + "` WHERE `" + Schema.RECORD_BORROW_UID + "`=?";
+    private static final String RECORDS_LOANED = "SELECT * FROM `" + Schema.RECORDS_TABLE + "` WHERE `" + Schema.RECORD_LOANER_UID + "`=?";
 
     @Override
     public Book createNewBook(long isbn, String title, String last, String first, String profs, String subj, int num) {
@@ -99,6 +102,34 @@ public class SQLLibrary implements Library {
     public boolean checkout(long barcode, long date) {
         conn.executeQuery("records_checkout", true, RECORDS_CHECKOUT, date, barcode);
         return true;
+    }
+
+    @Override
+    public List<Record> getBorrowedRecords(long uid) {
+        ResultSet rs = conn.executeQuery("get_borrowed", false, RECORDS_BORROWED, uid);
+        List<Record> ret = new LinkedList<>();
+        try {
+            while (rs.next()) {
+                ret.add(new Record(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
+    @Override
+    public List<Record> getLoanedRecords(long uid) {
+        ResultSet rs = conn.executeQuery("get_loaned", false, RECORDS_LOANED, uid);
+        List<Record> ret = new LinkedList<>();
+        try {
+            while (rs.next()) {
+                ret.add(new Record(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
     }
 
     @Override

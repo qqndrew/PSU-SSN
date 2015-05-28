@@ -13,14 +13,11 @@
             <c:otherwise>
             </c:otherwise>
         </c:choose>
-        <a href = "${pageContext.request.contextPath}/?app=logout">
-            Logout
-        </a>
+        <a href = "${pageContext.request.contextPath}/?app=member">Account Overview</a>
+        <a href = "${pageContext.request.contextPath}/?app=logout">Logout</a>
     </c:when>
     <c:otherwise>
-        <a href = "${pageContext.request.contextPath}/?app=login">
-            Login
-        </a>
+        <a href = "${pageContext.request.contextPath}/?app=login">Login</a>
     </c:otherwise>
 </c:choose>
 
