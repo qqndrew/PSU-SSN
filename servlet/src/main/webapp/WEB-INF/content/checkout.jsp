@@ -14,7 +14,7 @@
       <c:otherwise>
         <c:choose>
           <c:when test="${library.checkout(record.barcode, sessionScope.USER_ID, due_date)}" >
-            <p>Hold Successful: please go to the SSN office to pick up your book. Your due date is <fmt:formatDate value="${due_date}" pattern="MM-dd-yy"/></p>
+            <p>Hold Successful: please go to the SSN office to pick up your book. Your hold will expire on <fmt:formatDate value="${due_date}" pattern="MM-dd-yy"/> if the book is not picked up</p>
           </c:when>
           <c:otherwise>
             <p>Hold Unsuccessful: Most likely someone else placed a hold on the same book before you!</p>
@@ -37,7 +37,7 @@
       </c:forEach>
     </ul>
     </p>
-    <p>Due Date: <fmt:formatDate value="${due_date}" pattern="MM-dd-yy"/></p>
+    <p>Pick-Up By: <fmt:formatDate value="${due_date}" pattern="MM-dd-yy"/></p>
     <p><a href = "${pageContext.request.contextPath}/?app=checkout&confirm=true&uid=${record.barcode}">Confirm</a></p>
   </c:otherwise>
 </c:choose>
