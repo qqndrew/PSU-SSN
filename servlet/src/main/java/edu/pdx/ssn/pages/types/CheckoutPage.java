@@ -12,7 +12,6 @@ public class CheckoutPage implements ServerPage {
     public static final String PAGE_KEY = "checkout";
 
     private static final long WEEK = 604800000;
-    private static final long ELEVEN_WEEKS = 6652800000L;
 
     @Override
     public boolean processRequest(HttpServletRequest req, HttpServletResponse resp) {

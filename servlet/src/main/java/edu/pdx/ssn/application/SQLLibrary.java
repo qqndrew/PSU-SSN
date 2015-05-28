@@ -19,9 +19,13 @@ public class SQLLibrary implements Library {
         this.conn.connect();
     }
 
-    private static final String RECORDS_CHECKOUT = "UPDATE `" + Schema.RECORDS_TABLE + "` SET `"
+    private static final String RECORDS_HOLD = "UPDATE `" + Schema.RECORDS_TABLE + "` SET `"
             + Schema.RECORD_CHECKED_OUT + "`=1, `" + Schema.RECORD_BORROW_UID + "`=?, `" + Schema.RECORD_DUE_DATE
             + "`=? WHERE ((`" + Schema.RECORD_CHECKED_OUT + "`=0) AND (`" + Schema.RECORD_BARCODE + "`=?))";
+
+    private static final String RECORDS_CHECKOUT = "UPDATE `" + Schema.RECORDS_TABLE + "` SET `"
+            + Schema.RECORD_CHECKED_OUT + "`=2, `" + Schema.RECORD_DUE_DATE
+            + "`=? WHERE ((`" + Schema.RECORD_CHECKED_OUT + "`=1) AND (`" + Schema.RECORD_BARCODE + "`=?))";
 
     private static final String RECORDS_CHECKIN = "UPDATE `" + Schema.RECORDS_TABLE + "` SET `"
             + Schema.RECORD_CHECKED_OUT + "`=0 WHERE (`" + Schema.RECORD_BARCODE + "`=?)";
@@ -92,6 +96,12 @@ public class SQLLibrary implements Library {
     }
 
     @Override
+    public boolean checkout(long barcode, long date) {
+        conn.executeQuery("records", true, RECORDS_CHECKOUT, date, barcode);
+        return true;
+    }
+
+    @Override
     public Record getRecord(long barcode) {
         ResultSet rs = conn.executeQuery("records_retrieve_barcode", false, RECORDS_RETRIEVE_BARCODE, barcode);
         try {
@@ -123,7 +133,7 @@ public class SQLLibrary implements Library {
 
     @Override
     public boolean hold(Long bookUid, long userUid, Date dueDate) {
-        conn.executeQuery("records", true, RECORDS_CHECKOUT, userUid, dueDate.getTime(), bookUid);
+        conn.executeQuery("records", true, RECORDS_HOLD, userUid, dueDate.getTime(), bookUid);
         ResultSet result = conn.executeQuery("records_retrieve_barcode", true, RECORDS_RETRIEVE_BARCODE, bookUid);
         try {
             if (result.next()) {

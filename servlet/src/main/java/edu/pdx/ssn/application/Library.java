@@ -23,4 +23,6 @@ public interface Library {
     void checkin(long barcode);
 
     Book updateBook(long isbn, String title, String last, String first, String profs, String subj, int num);
+
+    boolean checkout(long barcode, long date);
 }

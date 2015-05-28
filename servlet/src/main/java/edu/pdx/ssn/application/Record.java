@@ -16,7 +16,7 @@ public class Record {
     private Long loanerUid;
 
     // Circulation information
-    private boolean checked_out;
+    private int checked_out;
     private long checkoutUid;
     private Date dueDate;
     private long barcode;
@@ -25,7 +25,7 @@ public class Record {
         try {
             barcode = result.getLong(Schema.RECORD_BARCODE);
             isbn = result.getLong(Schema.RECORD_ISBN);
-            checked_out = result.getBoolean(Schema.RECORD_CHECKED_OUT);
+            checked_out = result.getInt(Schema.RECORD_CHECKED_OUT);
             checkoutUid = result.getLong(Schema.RECORD_BORROW_UID);
             long temp = result.getLong(Schema.RECORD_DUE_DATE);
             dueDate = temp == 0 ? null : new Date(temp);
@@ -39,7 +39,7 @@ public class Record {
     }
 
     public boolean in_circulation() {
-        return !checked_out && (!loaned || new Date(System.currentTimeMillis()).before(loan_end));
+        return (checked_out == 0) && (!loaned || new Date(System.currentTimeMillis()).before(loan_end));
     }
 
     public Date getDueDate() {
@@ -62,4 +62,7 @@ public class Record {
         return BookRegistry.getBook(isbn);
     }
 
+    public int getCheckoutState() {
+        return checked_out;
+    }
 }
