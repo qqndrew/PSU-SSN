@@ -2,6 +2,7 @@ package edu.pdx.ssn.pages.types;
 
 import edu.pdx.ssn.pages.ServerPage;
 import edu.pdx.ssn.pages.types.admin.AdminCheckin;
+import edu.pdx.ssn.pages.types.admin.AdminCheckoutPage;
 import edu.pdx.ssn.pages.types.admin.AdminCreateNew;
 import edu.pdx.ssn.pages.types.admin.AdminEditBook;
 import edu.pdx.ssn.pages.types.admin.AdminNewMember;
@@ -27,6 +28,7 @@ public class AdminPage implements ServerPage {
         pages.put(AdminCheckin.PAGE_KEY, new AdminCheckin());
         pages.put("editbook", new AdminEditBook());
         pages.put(AdminNewMember.PAGE_KEY, new AdminNewMember());
+        pages.put(AdminCheckoutPage.PAGE_KEY, new AdminCheckoutPage());
     }
 
     @Override
