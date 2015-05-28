@@ -39,6 +39,18 @@ public class RegisterPage implements ServerPage {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) {
         String user = req.getParameter("user").toLowerCase();
+        if (!user.matches("(?i)\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b")) {
+            req.setAttribute("errmessage", "Password Mismatch, please try again!");
+            req.setAttribute("app", "register");
+            try {
+                req.getRequestDispatcher("/WEB-INF/index.jsp?app=register").forward(req, resp);
+                return;
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         String password = req.getParameter("password");
         String passwordConfirm = req.getParameter("confpassword");
         String phone = req.getParameter("phone");

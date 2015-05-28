@@ -40,6 +40,19 @@ public class AdminNewMember implements ServerPage {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) {
         String user = req.getParameter("user").toLowerCase();
+        if (!user.matches("(?i)\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b")) {
+            req.setAttribute("errmessage", "This is not a valid email!");
+            PageManager.getPage("admin").setMetaAttributes(req);
+            req.setAttribute("admpage", PAGE_KEY);
+            try {
+                req.getRequestDispatcher("/WEB-INF/index.jsp?app=admin&page=" + PAGE_KEY).forward(req, resp);
+                return;
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         String password = req.getParameter("password");
         String passwordConfirm = req.getParameter("confpassword");
         String phone = req.getParameter("phone");
@@ -57,6 +70,7 @@ public class AdminNewMember implements ServerPage {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return;
         } else {
             try {
                 if (Server.getConnection().executeQuery("lookupemail", false, LOOKUP_QUERY, user).next()) {
