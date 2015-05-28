@@ -99,8 +99,8 @@ public class AdminCheckoutPage implements ServerPage {
 
         try {
             PageManager.getPage("admin").setMetaAttributes(req);
-            req.setAttribute("admpage", "checkin");
-            req.getRequestDispatcher("/WEB-INF/index.jsp?app=admin&page=checkin&confirm=" + confirm).forward(req, resp);
+            req.setAttribute("admpage", "checkout");
+            req.getRequestDispatcher("/WEB-INF/index.jsp?app=admin&page=checkout&confirm=" + confirm).forward(req, resp);
         } catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {
