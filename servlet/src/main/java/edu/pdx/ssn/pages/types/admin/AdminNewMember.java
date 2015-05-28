@@ -88,7 +88,7 @@ public class AdminNewMember implements ServerPage {
                 e.printStackTrace();
             }
         }
-        int admin = req.getParameter("admin").equals("1") ? 1 : 0;
+        int admin = req.getParameter("admin") != null ? 1 : 0;
         MessageDigest digest = null;
         try {
             digest = MessageDigest.getInstance("SHA-256");
