@@ -13,7 +13,7 @@
             <c:otherwise>
             </c:otherwise>
         </c:choose>
-        <a href = "${pageContext.request.contextPath}/?app=member">Account Overview</a>
+        <a href = "${pageContext.request.contextPath}/?app=member">Account Overview</a><br/>
         <a href = "${pageContext.request.contextPath}/?app=logout">Logout</a>
     </c:when>
     <c:otherwise>
