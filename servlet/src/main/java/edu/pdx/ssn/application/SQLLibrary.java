@@ -97,7 +97,7 @@ public class SQLLibrary implements Library {
 
     @Override
     public boolean checkout(long barcode, long date) {
-        conn.executeQuery("records", true, RECORDS_CHECKOUT, date, barcode);
+        conn.executeQuery("records_checkout", true, RECORDS_CHECKOUT, date, barcode);
         return true;
     }
 
@@ -133,7 +133,7 @@ public class SQLLibrary implements Library {
 
     @Override
     public boolean hold(Long bookUid, long userUid, Date dueDate) {
-        conn.executeQuery("records", true, RECORDS_HOLD, userUid, dueDate.getTime(), bookUid);
+        conn.executeQuery("records_hold", true, RECORDS_HOLD, userUid, dueDate.getTime(), bookUid);
         ResultSet result = conn.executeQuery("records_retrieve_barcode", true, RECORDS_RETRIEVE_BARCODE, bookUid);
         try {
             if (result.next()) {
