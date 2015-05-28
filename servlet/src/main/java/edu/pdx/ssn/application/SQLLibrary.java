@@ -28,7 +28,7 @@ public class SQLLibrary implements Library {
             + "`=? WHERE ((`" + Schema.RECORD_CHECKED_OUT + "`=1) AND (`" + Schema.RECORD_BARCODE + "`=?))";
 
     private static final String RECORDS_CHECKIN = "UPDATE `" + Schema.RECORDS_TABLE + "` SET `"
-            + Schema.RECORD_CHECKED_OUT + "`=0, `" + Schema.RECORD_LOANER_UID + "`=-1 WHERE (`" + Schema.RECORD_BARCODE + "`=?)";
+            + Schema.RECORD_CHECKED_OUT + "`=0, `" + Schema.RECORD_BORROW_UID + "`=NULL WHERE (`" + Schema.RECORD_BARCODE + "`=?)";
 
     private static final String CATALOG_RETRIEVAL_QUERY = "Select * FROM `" + Schema.BOOKS_TABLE + "` WHERE ((`"
             + Schema.BOOK_ISBN + "` LIKE ?) AND (`" + Schema.BOOK_TITLE + "` LIKE ?) AND (`" + Schema.BOOK_AUTHOR_LAST
