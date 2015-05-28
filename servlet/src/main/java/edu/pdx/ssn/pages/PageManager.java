@@ -35,7 +35,7 @@ public class PageManager {
     }
 
     public static ServerPage getPage(String key) {
-        return pages.containsKey(key) ? pages.get(key) : (key == null ? pages.get(DEFAULT_KEY) : ErrPageManager.getErrorPage(404, key));
+        return pages.containsKey(key) ? pages.get(key) : (key == null ? pages.get(DEFAULT_KEY) : ErrPageManager.getErrorPage(404));
     }
 
 }
