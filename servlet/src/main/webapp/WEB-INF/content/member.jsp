@@ -33,7 +33,7 @@
           <td>${record.dueDate}</td>
         </tr>
       </c:forEach>
-      <c:forEach var="record" items="${user.loaned}">
+      <c:forEach var="record" items="${user.loanedRecords}">
         <tr>
           <td>${record.book.ISBN}</td>
           <td>${record.book.title}</td>
