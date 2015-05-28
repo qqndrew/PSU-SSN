@@ -13,8 +13,7 @@ public class MemberPage implements ServerPage, Sessions {
     @Override
     public boolean processRequest(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
-        if (session == null) {
-            // Should not be reached
+        if ((session == null) || !((Boolean)session.getAttribute(IS_LOGGED_IN))) {
             return false;
         }
         req.setAttribute("user", Member.getMember((Long) session.getAttribute(USER_ID)));

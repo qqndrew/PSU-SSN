@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
   <c:when test="${sessionScope.IS_LOGGED_IN}">
-    <jsp:useBean id="user" type="edu.pdx.ssn.application.Member"/>
+    <jsp:useBean id="user" scope="request" type="edu.pdx.ssn.application.Member"/>
     <p>User ID: ${user.uid}</p>
     <p>E-Mail: ${user.email}</p>
     <p>Phone Number: ${user.phone}</p>
