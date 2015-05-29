@@ -33,6 +33,7 @@ public class AdminEditMember implements ServerPage {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        req.setAttribute("errmessage", "");
         if (Boolean.valueOf(req.getParameter("confirm"))) {
             String user = req.getParameter("user").toLowerCase();
             long uid = Long.valueOf(req.getParameter("uid"));
@@ -81,7 +82,17 @@ public class AdminEditMember implements ServerPage {
                 }
                 return;
             }
-
+            req.setAttribute("user", user);
+            try {
+                PageManager.getPage("admin").setMetaAttributes(req);
+                req.setAttribute("admpage", PAGE_KEY);
+                req.getRequestDispatcher("/WEB-INF/index.jsp?app=admin&confirm=true&page=" + PAGE_KEY).forward(req, resp);
+                return;
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
