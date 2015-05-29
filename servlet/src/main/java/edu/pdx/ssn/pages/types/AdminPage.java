@@ -8,6 +8,7 @@ import edu.pdx.ssn.pages.types.admin.AdminEditBook;
 import edu.pdx.ssn.pages.types.admin.AdminEditMember;
 import edu.pdx.ssn.pages.types.admin.AdminNewMember;
 import edu.pdx.ssn.pages.types.admin.AdminNewRecordPage;
+import edu.pdx.ssn.pages.types.admin.AdminOverdueNotify;
 import edu.pdx.ssn.pages.types.admin.AdminRemoveCirculation;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,7 @@ public class AdminPage implements ServerPage {
         pages.put(AdminCheckoutPage.PAGE_KEY, new AdminCheckoutPage());
         pages.put(AdminRemoveCirculation.PAGE_KEY, new AdminRemoveCirculation());
         pages.put(AdminEditMember.PAGE_KEY, new AdminEditMember());
+        pages.put(AdminOverdueNotify.PAGE_KEY, new AdminOverdueNotify());
     }
 
     @Override

@@ -65,4 +65,16 @@ public class Record {
     public int getCheckoutState() {
         return checked_out;
     }
+
+    public long getCheckoutUid() {
+        return checkoutUid;
+    }
+
+    public Member getCheckoutMember() {
+        if (checkoutUid != 0) {
+            return Member.getMember(checkoutUid);
+        } else {
+            return null;
+        }
+    }
 }
