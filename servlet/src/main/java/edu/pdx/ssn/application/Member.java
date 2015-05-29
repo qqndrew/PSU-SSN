@@ -46,6 +46,7 @@ public class Member {
     private String phone;
     private String fname;
     private String lname;
+    private boolean isAdmin;
     private Collection<Record> recordsBorrowed;
     private Collection<Record> recordsLoaned;
 
@@ -61,6 +62,7 @@ public class Member {
         lname = result.getString(Schema.USER_LAST_NAME);
         recordsBorrowed = Server.getLibrary().getBorrowedRecords(uid);
         recordsLoaned = Server.getLibrary().getLoanedRecords(uid);
+        isAdmin = result.getBoolean(Schema.USER_IS_ADMIN);
     }
 
     public String getEmail() {
@@ -89,5 +91,9 @@ public class Member {
 
     public Collection<Record> getLoanedRecords() {
         return recordsLoaned;
+    }
+
+    public boolean getIsAdmin() {
+        return isAdmin;
     }
 }

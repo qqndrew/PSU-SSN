@@ -5,6 +5,7 @@ import edu.pdx.ssn.pages.types.admin.AdminCheckin;
 import edu.pdx.ssn.pages.types.admin.AdminCheckoutPage;
 import edu.pdx.ssn.pages.types.admin.AdminCreateNew;
 import edu.pdx.ssn.pages.types.admin.AdminEditBook;
+import edu.pdx.ssn.pages.types.admin.AdminEditMember;
 import edu.pdx.ssn.pages.types.admin.AdminNewMember;
 import edu.pdx.ssn.pages.types.admin.AdminNewRecordPage;
 import edu.pdx.ssn.pages.types.admin.AdminRemoveCirculation;
@@ -16,7 +17,6 @@ import java.util.HashMap;
 public class AdminPage implements ServerPage {
 
     public static String PAGE_KEY = "admin";
-
     private static HashMap<String, ServerPage> pages;
 
     static {
@@ -31,6 +31,7 @@ public class AdminPage implements ServerPage {
         pages.put(AdminNewMember.PAGE_KEY, new AdminNewMember());
         pages.put(AdminCheckoutPage.PAGE_KEY, new AdminCheckoutPage());
         pages.put(AdminRemoveCirculation.PAGE_KEY, new AdminRemoveCirculation());
+        pages.put(AdminEditMember.PAGE_KEY, new AdminEditMember());
     }
 
     @Override
