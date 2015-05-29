@@ -77,4 +77,12 @@ public class Record {
             return null;
         }
     }
+
+    public Member getLoanerMember() {
+        if (loanerUid != 0) {
+            return Member.getMember(loanerUid);
+        } else {
+            return null;
+        }
+    }
 }

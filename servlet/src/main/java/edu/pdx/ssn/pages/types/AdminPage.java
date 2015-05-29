@@ -6,6 +6,7 @@ import edu.pdx.ssn.pages.types.admin.AdminCheckoutPage;
 import edu.pdx.ssn.pages.types.admin.AdminCreateNew;
 import edu.pdx.ssn.pages.types.admin.AdminEditBook;
 import edu.pdx.ssn.pages.types.admin.AdminEditMember;
+import edu.pdx.ssn.pages.types.admin.AdminLoanReport;
 import edu.pdx.ssn.pages.types.admin.AdminNewMember;
 import edu.pdx.ssn.pages.types.admin.AdminNewRecordPage;
 import edu.pdx.ssn.pages.types.admin.AdminOverdueNotify;
@@ -34,6 +35,7 @@ public class AdminPage implements ServerPage {
         pages.put(AdminRemoveCirculation.PAGE_KEY, new AdminRemoveCirculation());
         pages.put(AdminEditMember.PAGE_KEY, new AdminEditMember());
         pages.put(AdminOverdueNotify.PAGE_KEY, new AdminOverdueNotify());
+        pages.put(AdminLoanReport.PAGE_KEY, new AdminLoanReport());
     }
 
     @Override
