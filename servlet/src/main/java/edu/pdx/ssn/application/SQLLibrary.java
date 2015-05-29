@@ -30,6 +30,9 @@ public class SQLLibrary implements Library {
     private static final String RECORDS_CHECKIN = "UPDATE `" + Schema.RECORDS_TABLE + "` SET `"
             + Schema.RECORD_CHECKED_OUT + "`=0, `" + Schema.RECORD_BORROW_UID + "`=NULL WHERE (`" + Schema.RECORD_BARCODE + "`=?)";
 
+    private static final String RECORDS_DELETE = "UPDATE `" + Schema.RECORDS_TABLE + "` SET `"
+            + Schema.RECORD_CHECKED_OUT + "`=-1 WHERE (`" + Schema.RECORD_BARCODE + "`=?)";
+
     private static final String CATALOG_RETRIEVAL_QUERY = "Select * FROM `" + Schema.BOOKS_TABLE + "` WHERE ((`"
             + Schema.BOOK_ISBN + "` LIKE ?) AND (`" + Schema.BOOK_TITLE + "` LIKE ?) AND (`" + Schema.BOOK_AUTHOR_LAST
             + "` LIKE ?) AND (`" + Schema.BOOK_AUTHOR_FIRST + "` LIKE ?) AND (`" + Schema.BOOK_SUBJECT
@@ -72,7 +75,10 @@ public class SQLLibrary implements Library {
         Collection<Record> ret = new LinkedList<>();
         try {
             while (rs.next()) {
-                ret.add(new Record(rs));
+                Record r = new Record(rs);
+                if (r.getCheckoutState() >= 0) {
+                    ret.add(r);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -130,6 +136,12 @@ public class SQLLibrary implements Library {
             e.printStackTrace();
         }
         return ret;
+    }
+
+    @Override
+    public void removeRecord(long barcode, String uid) {
+        conn.executeQuery("record_remove", false, RECORDS_DELETE, barcode);
+        System.out.println(new Date() + "User ID " + uid + " removed record " + barcode + " from circulation!");
     }
 
     @Override

@@ -29,4 +29,6 @@ public interface Library {
     List<Record> getBorrowedRecords(long uid);
 
     List<Record> getLoanedRecords(long uid);
+
+    void removeRecord(long barcode, String uid);
 }
