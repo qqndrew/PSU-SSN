@@ -45,6 +45,9 @@
               <c:when test="${record.checkoutState == 1}">
                 Loaned By You: Currently on Hold but at the SSN office
               </c:when>
+              <c:when test="${record.checkoutState == -1}">
+                Removed From Circulation: Please return ASAP
+              </c:when>
               <c:otherwise>
                 Loaned By You: Available for pickup
               </c:otherwise>
